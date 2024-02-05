@@ -1,3 +1,4 @@
+@file:Suppress("TooManyFunctions")
 package com.arakim.googlecalendarclone.dependencies
 
 import org.gradle.api.artifacts.dsl.DependencyHandler

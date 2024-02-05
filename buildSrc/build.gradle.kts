@@ -12,5 +12,4 @@ dependencies {
 
     // should match with version in dependencies/libs/Hilt.kt
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.48")
-
 }
