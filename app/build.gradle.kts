@@ -33,6 +33,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -58,7 +59,13 @@ android {
 }
 
 dependencies {
+    implementation(project(":data:sign-in"))
+    implementation(project(":ui:main-navigation"))
+
     androidX()
     compose()
     hilt()
+
+
+    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 }
