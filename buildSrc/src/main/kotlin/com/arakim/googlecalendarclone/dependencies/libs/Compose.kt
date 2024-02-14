@@ -3,6 +3,8 @@ package com.arakim.googlecalendarclone.dependencies.libs
 object Compose {
 
     const val KotlinCompilerExtensionVersion = "1.5.1"
+    const val NavigationVersion = "2.7.7"
+    const val HiltNavigationVersion = "1.0.0-alpha03"
 
     const val BOM = "androidx.compose:compose-bom:2024.01.00"
 
@@ -12,6 +14,8 @@ object Compose {
     const val UiGraphics = "androidx.compose.ui:ui-graphics"
     const val Preview = "androidx.compose.ui:ui-tooling-preview"
     const val Material3 = "androidx.compose.material3:material3"
+    const val Navigation = "androidx.navigation:navigation-compose:$NavigationVersion"
+    const val HiltNavigation = "androidx.hilt:hilt-navigation-compose:$HiltNavigationVersion"
 
     //only debug implementation
     const val UiTooling = "androidx.compose.ui:ui-tooling"

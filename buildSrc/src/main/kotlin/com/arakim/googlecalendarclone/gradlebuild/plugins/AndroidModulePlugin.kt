@@ -1,5 +1,8 @@
 package com.arakim.googlecalendarclone.gradlebuild.plugins
 
+import com.arakim.googlecalendarclone.dependencies.apiProject
+import com.arakim.googlecalendarclone.dependencies.implementation
+import com.arakim.googlecalendarclone.dependencies.libs.Kotlin
 import com.arakim.googlecalendarclone.gradlebuild.Android
 import com.arakim.googlecalendarclone.gradlebuild.BuildJvm
 import com.arakim.googlecalendarclone.gradlebuild.androidLibrary
@@ -12,6 +15,7 @@ open class AndroidModulePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         setUpKotlinCompile(project)
         setUpSdkVersion(project)
+        setUpDependencies(project)
     }
 
     private fun setUpSdkVersion(project: Project) {
@@ -35,5 +39,8 @@ open class AndroidModulePlugin : Plugin<Project> {
         return Android.BaseApplicationId.plus(nameSpace)
     }
 
-
+    private fun setUpDependencies(project: Project) {
+        project.dependencies.apiProject(":util:kotlin")
+        project.dependencies.implementation(Kotlin.Coroutines.Core)
+    }
 }
