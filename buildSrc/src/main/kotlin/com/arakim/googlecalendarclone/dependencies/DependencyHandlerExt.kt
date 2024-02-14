@@ -2,6 +2,7 @@
 package com.arakim.googlecalendarclone.dependencies
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.project
 
 internal fun DependencyHandler.implementation(dependency: Any) {
     this.add("implementation", dependency)
@@ -13,6 +14,14 @@ internal fun DependencyHandler.debugImplementation(dependency: Any) {
 
 internal fun DependencyHandler.implementationPlatform(value: String) {
     this.implementation(platform(value))
+}
+
+internal fun DependencyHandler.implementationProject(value: String) {
+    this.implementation(project(value))
+}
+
+internal fun DependencyHandler.apiProject(value: String) {
+    this.api(project(value))
 }
 
 internal fun DependencyHandler.api(dependency: Any) {

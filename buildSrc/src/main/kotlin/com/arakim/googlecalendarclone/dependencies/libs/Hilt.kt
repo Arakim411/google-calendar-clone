@@ -8,6 +8,7 @@ object Hilt {
 
     const val Android = "com.google.dagger:hilt-android:$Version"
     const val AndroidCompiler = "com.google.dagger:hilt-compiler:$Version"
+    const val Dagger = "com.google.dagger:dagger:$Version"
 
     const val ComposeNavigation = "androidx.hilt:hilt-navigation-compose:1.1.0"
 
