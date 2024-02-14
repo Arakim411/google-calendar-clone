@@ -37,7 +37,6 @@
             <option value="$PROJECT_DIR$/ui/screen" />
             <option value="$PROJECT_DIR$/ui/screen/home" />
             <option value="$PROJECT_DIR$/ui/screen/sign-in" />
-            <option value="$PROJECT_DIR$/ui/screen/splash" />
             <option value="$PROJECT_DIR$/util" />
             <option value="$PROJECT_DIR$/util/android" />
             <option value="$PROJECT_DIR$/util/kotlin" />
