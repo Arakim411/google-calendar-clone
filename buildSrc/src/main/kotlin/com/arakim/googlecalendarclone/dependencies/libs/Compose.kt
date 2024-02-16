@@ -13,7 +13,8 @@ object Compose {
     const val Ui = "androidx.compose.ui:ui"
     const val UiGraphics = "androidx.compose.ui:ui-graphics"
     const val Preview = "androidx.compose.ui:ui-tooling-preview"
-    const val Material3 = "androidx.compose.material3:material3"
+    //temporary solution due https://issuetracker.google.com/issues/322214617
+    const val Material3 = "androidx.compose.material3:material3-android:1.2.0-alpha10"
     const val Navigation = "androidx.navigation:navigation-compose:$NavigationVersion"
     const val HiltNavigation = "androidx.hilt:hilt-navigation-compose:$HiltNavigationVersion"
 
