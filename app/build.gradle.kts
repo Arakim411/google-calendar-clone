@@ -2,6 +2,7 @@
 import com.arakim.googlecalendarclone.dependencies.androidX
 import com.arakim.googlecalendarclone.dependencies.compose
 import com.arakim.googlecalendarclone.dependencies.hilt
+import com.arakim.googlecalendarclone.dependencies.libs.AndroidX
 import com.arakim.googlecalendarclone.dependencies.libs.Compose
 import com.arakim.googlecalendarclone.gradlebuild.Android
 import com.arakim.googlecalendarclone.gradlebuild.BuildJvm
@@ -61,6 +62,8 @@ android {
 dependencies {
     implementation(project(":data:sign-in"))
     implementation(project(":ui:main-navigation"))
+
+    implementation(AndroidX.Core.SplashScreen)
 
     androidX()
     compose()

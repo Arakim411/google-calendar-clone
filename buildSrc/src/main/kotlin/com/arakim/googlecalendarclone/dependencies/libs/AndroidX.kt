@@ -5,6 +5,7 @@ object AndroidX {
     object Core {
         const val Version = "1.12.0"
         const val Ktx = "androidx.core:core-ktx:$Version"
+        const val SplashScreen = "androidx.core:core-splashscreen:1.0.1"
     }
 
     object Lifecycle {
