@@ -17,6 +17,7 @@ apply<AndroidComposeModulePlugin>()
 dependencies {
     implementation(project(":ui:screen:home"))
     implementation(project(":ui:screen:sign-in"))
+    implementation(project(":ui:screen:splash"))
 
     hilt()
     composeHiltNavigation()

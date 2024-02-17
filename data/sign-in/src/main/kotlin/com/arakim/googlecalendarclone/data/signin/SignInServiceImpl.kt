@@ -12,6 +12,9 @@ import com.arakim.googlecalendarclone.domain.user.signin.UserResult
 import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod
 import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.FakeMethod
 import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.GoogleMethod
+import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId.Fake
+import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId.Google
+import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 import com.arakim.googlecalendarclone.util.kotlin.map
 import com.arakim.googlecalendarclone.util.kotlin.onSuccess
@@ -28,17 +31,21 @@ class SignInServiceImpl @Inject constructor(
 ) : SignInService {
     private val userState = MutableStateFlow<UserResult>(TypedResult.success(getSavedUser()))
 
-    override suspend fun signIn(method: SignInMethod): SignedUserResult {
-        val authUserResult = method.getAuthUser().onSuccess {
-            authUserRepository.saveUser(it)
+    override suspend fun signIn(method: SignInMethod): SignedUserResult =
+        method.getAuthUser().asDomainUserAndUpdate()
+
+    override fun getLocalUser(): UserResult = userState.value
+
+    override suspend fun getRefreshedUser(): UserResult {
+        val authUser = authUserRepository.authUser ?: return TypedResult.success(AnonymousUser)
+
+        val refreshedUser = when (authUser.methodId) {
+            Google -> googleSignInMethodService.getRefreshedAuthUser(authUser)
+            Fake -> fakeSignInMethodService.getRefreshedAuthUser(authUser)
         }
 
-        return authUserResult.map { it.toDomain() }.also {
-            userState.value = it.map { user -> user }
-        }
+        return refreshedUser.asDomainUserAndUpdate().map { it }
     }
-
-    override fun getCurrentUser(): UserResult = userState.value
 
     override fun userFlow(): Flow<UserResult> = userState
 
@@ -50,6 +57,13 @@ class SignInServiceImpl @Inject constructor(
     private suspend fun SignInMethod.getAuthUser() = when (this) {
         FakeMethod -> fakeSignInMethodService.getAuthUser(this as FakeMethod)
         is GoogleMethod -> googleSignInMethodService.getAuthUser(this)
+    }
+
+    private fun TypedResult<AuthUser, CommonError>.asDomainUserAndUpdate(): SignedUserResult {
+        onSuccess { authUserRepository.saveUser(it) }
+        return map { it.toDomain() }.also {
+            userState.value = it.map { user -> user }
+        }
     }
 
     private fun getSavedUser(): User = authUserRepository.authUser?.toDomain() ?: AnonymousUser

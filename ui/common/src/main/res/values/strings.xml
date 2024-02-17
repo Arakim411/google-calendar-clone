@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="common_error_something_went_wrong">Something went wrong</string>
+    <string name="common_error_no_connection">Check your connection</string>
+    <string name="try_again_button_text">Try again</string>
 </resources>

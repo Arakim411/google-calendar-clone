@@ -16,6 +16,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.arakim.googlecalendarclone.ui.common.CommonErrorView
 import com.arakim.googlecalendarclone.ui.common.CommonLoaderView
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestination
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.toAction
 import com.arakim.googlecalendarclone.ui.screen.signin.SignInViewModel
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction.SignInUserWithFake
@@ -34,15 +36,16 @@ import kotlinx.coroutines.flow.onEach
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel<SignInViewModel>(),
-    navigate: (MainDestination) -> Unit,
+    navigate: (NavigationAction) -> Unit,
 ) {
+
     val presenter = viewModel.presenter
     val state = presenter.stateFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         presenter.sideEffectFlow.onEach {
             when (it) {
-                is SignedInSideEffect -> navigate(MainDestination.HomeDestination)
+                is SignedInSideEffect -> navigate(MainDestination.HomeDestination.toAction())
             }
         }.launchIn(this)
     }

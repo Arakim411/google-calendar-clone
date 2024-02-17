@@ -62,13 +62,14 @@ android {
 dependencies {
     implementation(project(":data:sign-in"))
     implementation(project(":ui:main-navigation"))
+    implementation(project(":ui:main-navigation:destination"))
+    implementation(project(":util:compose"))
 
     implementation(AndroidX.Core.SplashScreen)
 
     androidX()
     compose()
     hilt()
-
 
     implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 }

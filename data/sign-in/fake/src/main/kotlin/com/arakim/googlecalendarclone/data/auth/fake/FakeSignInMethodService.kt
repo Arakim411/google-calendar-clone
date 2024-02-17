@@ -18,4 +18,8 @@ class FakeSignInMethodService @Inject constructor() : SignInMethodService<FakeMe
             )
         )
     }
+
+    override suspend fun getRefreshedAuthUser(user: AuthUser): TypedResult<AuthUser, CommonError> {
+        return getAuthUser(FakeMethod)
+    }
 }

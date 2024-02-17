@@ -6,4 +6,5 @@ import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 
 interface SignInMethodService<T : SignInMethod> {
     suspend fun getAuthUser(method: T): TypedResult<AuthUser, CommonError>
+    suspend fun getRefreshedAuthUser(user: AuthUser): TypedResult<AuthUser, CommonError>
 }

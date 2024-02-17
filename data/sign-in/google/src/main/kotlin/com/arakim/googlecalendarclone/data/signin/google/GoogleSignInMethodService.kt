@@ -4,9 +4,11 @@ import android.content.Context
 import com.arakim.googlecalendarclone.data.signin.common.AuthUser
 import com.arakim.googlecalendarclone.data.signin.common.SignInMethodService
 import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.GoogleMethod
+import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId.Google
 import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 import com.arakim.googlecalendarclone.util.kotlin.executeCommonIoAction
+import com.arakim.googlecalendarclone.util.kotlin.getOrThrow
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.util.ExponentialBackOff
 import com.google.api.services.calendar.CalendarScopes
@@ -34,5 +36,11 @@ class GoogleSignInMethodService @Inject constructor(
                     authToken = credentials.token
                 )
             }
+        }
+
+    override suspend fun getRefreshedAuthUser(user: AuthUser): TypedResult<AuthUser, CommonError> =
+        executeCommonIoAction {
+            require(user.methodId == Google)
+            getAuthUser(GoogleMethod(user.name)).getOrThrow()
         }
 }
