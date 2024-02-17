@@ -12,7 +12,8 @@ typealias SignedUserResult = TypedResult<SignedUser, CommonError>
 
 interface SignInService {
     suspend fun signIn(method: SignInMethod): SignedUserResult
-    fun getCurrentUser(): UserResult
+    fun getLocalUser(): UserResult
+    suspend fun getRefreshedUser(): UserResult
     fun userFlow(): Flow<UserResult>
     fun signOut()
 }

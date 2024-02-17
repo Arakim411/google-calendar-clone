@@ -1,25 +1,64 @@
 package com.arakim.googlecalendarclone.ui.screen.splash
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestination
+import androidx.compose.runtime.MutableState
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.arakim.googlecalendarclone.ui.common.CommonErrorView
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestination.HomeDestination
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestination.SignInDestination
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.toAction
+import com.arakim.googlecalendarclone.ui.screen.splash.viewmodel.SplashScreenViewModel
+import com.arakim.googlecalendarclone.ui.screen.splash.viewmodel.SplashSideEffect.UserNotSignedInSideEffect
+import com.arakim.googlecalendarclone.ui.screen.splash.viewmodel.SplashSideEffect.UserSignedInSideEffect
+import com.arakim.googlecalendarclone.ui.screen.splash.viewmodel.SplashState.ErrorState
+import com.arakim.googlecalendarclone.ui.screen.splash.viewmodel.SplashState.SigningInState
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SplashScreen(
-    navigate: (MainDestination) -> Unit
+    viewModel: SplashScreenViewModel = hiltViewModel(),
+    navigate: (NavigationAction) -> Unit,
+    showNativeSplash: MutableState<Boolean>,
 ) {
-    // TODO implement
+    val state = viewModel.state.collectAsStateWithLifecycle().value
+
     LaunchedEffect(Unit) {
-        navigate(MainDestination.SignInDestination)
+        viewModel.sideEffectFlow.onEach {
+            when (it) {
+                is UserNotSignedInSideEffect -> navigate(SignInDestination.toAction())
+                is UserSignedInSideEffect -> navigate(HomeDestination.toAction())
+            }
+        }.launchIn(this)
+
+        viewModel.tryAutoSignIn()
     }
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Splash Screen", style = MaterialTheme.typography.displayLarge)
+    LaunchedEffect(Unit) {
+        viewModel.state.onEach {
+            when (it) {
+                SigningInState -> showNativeSplash.value = true
+                else -> showNativeSplash.value = false
+            }
+        }.launchIn(this)
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            showNativeSplash.value = false
+        }
+    }
+
+    when (state) {
+        is ErrorState -> CommonErrorView(
+            commonError = state.error,
+            onRetry = { viewModel.tryAutoSignIn() }
+        )
+
+        else -> Unit
     }
 }
