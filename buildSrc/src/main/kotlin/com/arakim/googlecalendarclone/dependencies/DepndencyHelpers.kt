@@ -63,6 +63,7 @@ fun DependencyHandler.jvmTests() {
     testImplementation(Tests.Turbine.Core)
     testImplementation(Kotlin.Coroutines.Core)
     testImplementation(Tests.Coroutines.Core)
+    testImplementation(Tests.Turbine.Core)
 }
 
 fun DependencyHandler.androidTests() {
