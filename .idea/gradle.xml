@@ -43,6 +43,7 @@
             <option value="$PROJECT_DIR$/util/compose" />
             <option value="$PROJECT_DIR$/util/kotlin" />
             <option value="$PROJECT_DIR$/util/mvi" />
+            <option value="$PROJECT_DIR$/util/test" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
