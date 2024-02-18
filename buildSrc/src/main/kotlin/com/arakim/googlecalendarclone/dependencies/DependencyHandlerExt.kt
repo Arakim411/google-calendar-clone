@@ -20,6 +20,10 @@ internal fun DependencyHandler.implementationProject(value: String) {
     this.implementation(project(value))
 }
 
+internal fun DependencyHandler.testImplementationProject(value: String) {
+    this.testImplementation(project(value))
+}
+
 internal fun DependencyHandler.apiProject(value: String) {
     this.api(project(value))
 }
