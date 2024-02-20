@@ -1,6 +1,7 @@
 package com.arakim.googlecalendarclone.data.signin
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import com.arakim.googlecalendarclone.data.signin.common.AuthUser
 import com.arakim.googlecalendarclone.data.signin.common.authUserFromJson
 import com.arakim.googlecalendarclone.data.signin.common.toJson
@@ -22,7 +23,8 @@ class AuthUserRepository @Inject constructor(
         preferences.edit().remove(AuthUserKey).apply()
     }
 
-    private companion object {
+    @VisibleForTesting
+    companion object {
         const val PrefKey = "pref_auth"
         const val AuthUserKey = "auth_user"
     }

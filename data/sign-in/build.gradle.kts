@@ -1,4 +1,5 @@
 
+import com.arakim.googlecalendarclone.dependencies.androidTests
 import com.arakim.googlecalendarclone.dependencies.hilt
 import com.arakim.googlecalendarclone.dependencies.jvmTests
 import com.arakim.googlecalendarclone.gradlebuild.plugins.AndroidModulePlugin
@@ -19,6 +20,7 @@ dependencies {
     implementation(project(":data:sign-in:google"))
     implementation(project(":data:sign-in:fake"))
 
+    androidTests()
     jvmTests()
     hilt()
 }
