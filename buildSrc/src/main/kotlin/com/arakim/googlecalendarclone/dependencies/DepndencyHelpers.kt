@@ -67,6 +67,7 @@ fun DependencyHandler.jvmTests() {
 }
 
 fun DependencyHandler.androidTests(util: Boolean = true) {
+    androidTestImplementationProject(":util:test")
     androidTestImplementation(Tests.Espresso.Android)
     androidTestImplementation(Tests.Mockk.Android)
     androidTestImplementation(Tests.Mockk.Android)

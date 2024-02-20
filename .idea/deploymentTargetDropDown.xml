@@ -34,6 +34,18 @@
           <timeTargetWasSelectedWithDropDown value="2024-02-18T14:14:04.834934Z" />
         </State>
       </entry>
+      <entry key="exampleTest() (1)">
+        <State />
+      </entry>
+      <entry key="initial_user_is_null()">
+        <State />
+      </entry>
+      <entry key="when_clear_is_invoked_then_clear_user_in_shared_pref()">
+        <State />
+      </entry>
+      <entry key="when_save_is_invoked_then_save_user_in_shared_pref()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
