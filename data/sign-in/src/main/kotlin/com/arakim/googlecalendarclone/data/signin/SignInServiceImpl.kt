@@ -18,10 +18,10 @@ import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 import com.arakim.googlecalendarclone.util.kotlin.map
 import com.arakim.googlecalendarclone.util.kotlin.onSuccess
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Singleton
 class SignInServiceImpl @Inject constructor(
@@ -69,6 +69,6 @@ class SignInServiceImpl @Inject constructor(
     private fun getSavedUser(): User = authUserRepository.authUser?.toDomain() ?: AnonymousUser
 }
 
- fun AuthUser.toDomain(): SignedUser = SignedUser(
+fun AuthUser.toDomain(): SignedUser = SignedUser(
     name = name
 )

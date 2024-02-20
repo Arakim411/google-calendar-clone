@@ -26,7 +26,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.arakim.googlecalendarclone.util.androidtest.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":ui:main-navigation"))
     implementation(project(":ui:main-navigation:destination"))
     implementation(project(":util:compose"))
+    kaptAndroidTestRelease(project(":util:android-test"))
 
     implementation(AndroidX.Core.SplashScreen)
 

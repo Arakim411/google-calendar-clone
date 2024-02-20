@@ -40,6 +40,7 @@
             <option value="$PROJECT_DIR$/ui/screen/splash" />
             <option value="$PROJECT_DIR$/util" />
             <option value="$PROJECT_DIR$/util/android" />
+            <option value="$PROJECT_DIR$/util/android-test" />
             <option value="$PROJECT_DIR$/util/compose" />
             <option value="$PROJECT_DIR$/util/kotlin" />
             <option value="$PROJECT_DIR$/util/mvi" />

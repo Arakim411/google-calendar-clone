@@ -24,6 +24,9 @@ open class AndroidModulePlugin : Plugin<Project> {
                 sourceCompatibility = BuildJvm.JvmTarget
                 targetCompatibility = BuildJvm.JvmTarget
             }
+            project.androidLibrary().defaultConfig {
+                testInstrumentationRunner = "com.arakim.googlecalendarclone.util.androidtest.HiltTestRunner"
+            }
             namespace = project.getNameSpace()
             compileSdk = Android.CompileSdk
             defaultConfig.minSdk = Android.MinSdk

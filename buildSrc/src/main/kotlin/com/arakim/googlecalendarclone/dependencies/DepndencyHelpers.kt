@@ -66,13 +66,18 @@ fun DependencyHandler.jvmTests() {
     testImplementation(Tests.Turbine.Core)
 }
 
-fun DependencyHandler.androidTests() {
+fun DependencyHandler.androidTests(util: Boolean = true) {
     androidTestImplementation(Tests.Espresso.Android)
     androidTestImplementation(Tests.Mockk.Android)
     androidTestImplementation(Tests.Mockk.Android)
     androidTestImplementation(Tests.Mockk.Agent)
     androidTestImplementation(Tests.AssertK.Jvm)
     androidTestImplementation(Tests.Coroutines.Core)
+    androidTestImplementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
+
+    if(util) {
+        androidTestImplementationProject(":util:android-test")
+    }
 }
 
 fun DependencyHandler.hiltTests() {

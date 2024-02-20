@@ -20,6 +20,10 @@ internal fun DependencyHandler.implementationProject(value: String) {
     this.implementation(project(value))
 }
 
+internal fun DependencyHandler.androidTestImplementationProject(value: String) {
+    this.androidTestImplementation(project(value))
+}
+
 internal fun DependencyHandler.testImplementationProject(value: String) {
     this.testImplementation(project(value))
 }
