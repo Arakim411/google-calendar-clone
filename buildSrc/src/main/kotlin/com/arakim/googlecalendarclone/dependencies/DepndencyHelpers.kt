@@ -74,6 +74,7 @@ fun DependencyHandler.androidTests(util: Boolean = true) {
     androidTestImplementation(Tests.Mockk.Agent)
     androidTestImplementation(Tests.AssertK.Jvm)
     androidTestImplementation(Tests.Coroutines.Core)
+    androidTestImplementation(Tests.Turbine.Core)
     androidTestImplementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 
     if(util) {

@@ -26,6 +26,15 @@ open class AndroidModulePlugin : Plugin<Project> {
             }
             project.androidLibrary().defaultConfig {
                 testInstrumentationRunner = "com.arakim.googlecalendarclone.util.androidtest.HiltTestRunner"
+                packaging {
+                    resources.excludes.addAll(
+                        listOf(
+                            "META-INF/LICENSE.md",
+                            "META-INF/LICENSE-notice.md",
+
+                            )
+                    )
+                }
             }
             namespace = project.getNameSpace()
             compileSdk = Android.CompileSdk
