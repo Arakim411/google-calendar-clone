@@ -13,7 +13,6 @@ plugins {
     id("com.android.library")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
-    // remember that is junit 5 plugin
     id("de.mannodermaus.android-junit5") version "1.10.0.0"
     `kotlin-kapt`
 }
@@ -36,5 +35,6 @@ dependencies {
     hilt()
     composeHiltNavigation()
     compose()
+    composeTest()
     mvi()
 }

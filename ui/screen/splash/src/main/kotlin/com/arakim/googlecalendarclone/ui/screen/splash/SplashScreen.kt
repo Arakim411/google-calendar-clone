@@ -30,8 +30,8 @@ fun SplashScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffectFlow.onEach {
             when (it) {
-                is UserNotSignedInSideEffect -> navigate(SignInDestination.toAction())
-                is UserSignedInSideEffect -> navigate(HomeDestination.toAction())
+                is UserNotSignedInSideEffect -> navigate(SignInDestination.toAction(removeAllDestinations = true))
+                is UserSignedInSideEffect -> navigate(HomeDestination.toAction(removeAllDestinations = true))
             }
         }.launchIn(this)
 

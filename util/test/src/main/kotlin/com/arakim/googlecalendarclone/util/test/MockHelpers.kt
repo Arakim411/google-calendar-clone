@@ -27,6 +27,11 @@ fun <T : Any> KClass<T>.allDerivedSealedClassesRecursive(): List<KClass<out T>> 
         }
     }
 
+@Suppress("NO_REFLECTION_IN_CLASS_PATH")
+fun <T : Any> List<KClass<out T>>.asMocksOrObjects(): List<T> = this.map {
+    it.objectInstance ?: mockkByClass(it)
+}
+
 inline fun <T : Any> mockkByClass(
     mockType: KClass<T>,
     name: String? = null,
