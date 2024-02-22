@@ -47,4 +47,8 @@ object Tests {
     object Coroutines {
         const val Core = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Kotlin.Coroutines.Version}"
     }
+
+    object JUnit {
+        const val Core = "junit:junit:4.13.2"
+    }
 }

@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="SplashScreenTest">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -16,6 +19,31 @@
             </Target>
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-02-17T12:25:31.617083Z" />
+        </State>
+      </entry>
+      <entry key="when_UserNotSignedInSideEffect_then_navigate_to_SignInDestination()">
+        <State />
+      </entry>
+      <entry key="when_UserSignedInSideEffect_then_navigate_to_HomeDestination()">
+        <State />
+      </entry>
+      <entry key="when_state_is_ErrorState_then_show_error_view()">
+        <State />
+      </entry>
+      <entry key="when_state_is_SigningInState_then_showSplash_is_true_otherwise_false()">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="$USER_HOME$/.android/avd/Android_TV_1080p_API_31.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-02-22T09:11:05.561643Z" />
         </State>
       </entry>
     </value>
