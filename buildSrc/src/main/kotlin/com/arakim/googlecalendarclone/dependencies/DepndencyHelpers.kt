@@ -13,7 +13,7 @@ fun DependencyHandler.androidX() {
     implementation(AndroidX.Lifecycle.RunTime)
 }
 
-fun DependencyHandler.compose() {
+fun DependencyHandler.compose(util: Boolean = true) {
     implementationPlatform(Compose.BOM)
 
     implementation(Compose.Activity)
@@ -26,6 +26,10 @@ fun DependencyHandler.compose() {
 
     debugImplementation(Compose.UiTooling)
     debugImplementation(Compose.UiTestManifest)
+
+    if(util) {
+        implementationProject(":util:compose")
+    }
 }
 
 fun DependencyHandler.composeHiltNavigation() {

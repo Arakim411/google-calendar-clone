@@ -79,5 +79,4 @@ internal fun SignInWithFakeButton(onClick: () -> Unit) {
 object SignInScreenTestTags {
     const val SignInWithGoogleButton = "SignInWithGoogleButton"
     const val SignInWithFakeButton = "SignInWithFakeButton"
-
 }

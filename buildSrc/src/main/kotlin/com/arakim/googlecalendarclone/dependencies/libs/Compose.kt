@@ -17,6 +17,7 @@ object Compose {
     const val Material3 = "androidx.compose.material3:material3-android:1.2.0-alpha10"
     const val Navigation = "androidx.navigation:navigation-compose:$NavigationVersion"
     const val HiltNavigation = "androidx.hilt:hilt-navigation-compose:$HiltNavigationVersion"
+    const val WindowSizeClass = "androidx.compose.material3:material3-window-size-class"
 
     //only debug implementation
     const val UiTooling = "androidx.compose.ui:ui-tooling"
