@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +32,7 @@ private const val SignInButtonCornerRadius = 50
 @Composable
 internal fun SignInWithGoogleButton(onClick: () -> Unit) {
     Image(
-        modifier = Modifier.clickable { onClick() },
+        modifier = Modifier.clickable { onClick() }.testTag(SignInScreenTestTags.SignInWithGoogleButton),
         painter = painterResource(id = drawable.sign_in_with_google_su),
         contentDescription = null
     )
@@ -43,6 +44,7 @@ internal fun SignInWithFakeButton(onClick: () -> Unit) {
         modifier = Modifier
             .width(175.dp)
             .height(40.dp)
+            .testTag(SignInScreenTestTags.SignInWithFakeButton)
             .border(
                 width = 0.5.dp,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -72,4 +74,10 @@ internal fun SignInWithFakeButton(onClick: () -> Unit) {
             )
         }
     }
+}
+
+object SignInScreenTestTags {
+    const val SignInWithGoogleButton = "SignInWithGoogleButton"
+    const val SignInWithFakeButton = "SignInWithFakeButton"
+
 }
