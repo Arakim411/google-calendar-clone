@@ -84,7 +84,7 @@ fun DependencyHandler.androidTests(util: Boolean = true) {
 
 fun DependencyHandler.hiltTests() {
     androidTestImplementation(Tests.HiltTests.Android)
-    kapt(Tests.HiltTests.Compiler)
+    kaptAndroidTest(Tests.HiltTests.Compiler)
 
 }
 

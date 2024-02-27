@@ -1,6 +1,8 @@
 import com.arakim.googlecalendarclone.dependencies.compose
 import com.arakim.googlecalendarclone.dependencies.composeHiltNavigation
+import com.arakim.googlecalendarclone.dependencies.composeTest
 import com.arakim.googlecalendarclone.dependencies.hilt
+import com.arakim.googlecalendarclone.dependencies.hiltTests
 import com.arakim.googlecalendarclone.dependencies.jvmTests
 import com.arakim.googlecalendarclone.dependencies.libs.Google
 import com.arakim.googlecalendarclone.dependencies.mvi
@@ -22,7 +24,10 @@ dependencies {
 
     implementation(Google.Api.AndroidClient)
     implementation(Google.PlayServices.Auth)
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
+    composeTest()
+    hiltTests()
     jvmTests()
     hilt()
     composeHiltNavigation()

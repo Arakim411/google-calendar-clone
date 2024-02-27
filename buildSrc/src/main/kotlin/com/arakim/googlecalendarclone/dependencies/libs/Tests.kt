@@ -36,7 +36,8 @@ object Tests {
 
     object HiltTests {
         const val Android = "com.google.dagger:hilt-android-testing:${Hilt.Version}"
-        const val Compiler = "androidx.hilt:hilt-compiler:1.1.0"
+        const val Compiler = "com.google.dagger:hilt-android-compiler:${Hilt.Version}"
+
     }
 
     object Turbine {
