@@ -1,4 +1,5 @@
 import com.arakim.googlecalendarclone.dependencies.compose
+import com.arakim.googlecalendarclone.dependencies.libs.Compose
 import com.arakim.googlecalendarclone.gradlebuild.plugins.AndroidComposeModulePlugin
 
 plugins {
@@ -9,5 +10,6 @@ plugins {
 apply<AndroidComposeModulePlugin>()
 
 dependencies {
-    compose()
+    implementation(Compose.WindowSizeClass)
+    compose(util = false)
 }

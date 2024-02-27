@@ -22,13 +22,13 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
+import javax.inject.Inject
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
-//TODO tests for sign in with google
+// TODO tests for sign in with google
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class SignInScreenTest {
@@ -56,7 +56,6 @@ class SignInScreenTest {
         MockKAnnotations.init(this)
         hiltRule.inject()
         viewModel = SignInViewModel(presneter)
-
     }
 
     @Test

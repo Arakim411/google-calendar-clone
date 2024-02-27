@@ -9,6 +9,7 @@ import com.arakim.googlecalendarclone.domain.user.signin.SignInService
 import com.arakim.googlecalendarclone.domain.user.signin.usecases.SignInUserUseCase
 import com.arakim.googlecalendarclone.ui.mainnavigation.MainNavigation
 import com.arakim.googlecalendarclone.ui.theme.GoogleCalendarCloneTheme
+import com.arakim.googlecalendarclone.util.compose.windowsizeclass.WindowSizeType
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,7 +32,9 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             GoogleCalendarCloneTheme {
-                MainNavigation(showNativeSplash = showNativeSplash)
+                WindowSizeType {
+                    MainNavigation(showNativeSplash = showNativeSplash)
+                }
             }
         }
     }
