@@ -20,7 +20,6 @@ apply<AndroidComposeModulePlugin>()
 
 dependencies {
     implementation(project(":domain:user:sign-in"))
-    implementation(project(":ui:common"))
 
     implementation(Google.Api.AndroidClient)
     implementation(Google.PlayServices.Auth)

@@ -11,5 +11,5 @@ apply<AndroidComposeModulePlugin>()
 
 dependencies {
     implementation(Compose.WindowSizeClass)
-    compose(util = false)
+    compose(util = false, common = false)
 }

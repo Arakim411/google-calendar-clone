@@ -13,7 +13,7 @@ fun DependencyHandler.androidX() {
     implementation(AndroidX.Lifecycle.RunTime)
 }
 
-fun DependencyHandler.compose(util: Boolean = true) {
+fun DependencyHandler.compose(util: Boolean = true, common: Boolean = true) {
     implementationPlatform(Compose.BOM)
 
     implementation(Compose.Activity)
@@ -27,8 +27,12 @@ fun DependencyHandler.compose(util: Boolean = true) {
     debugImplementation(Compose.UiTooling)
     debugImplementation(Compose.UiTestManifest)
 
-    if(util) {
+    if (util) {
         implementationProject(":util:compose")
+    }
+
+    if (common) {
+        implementationProject(":ui:common")
     }
 }
 
@@ -81,7 +85,7 @@ fun DependencyHandler.androidTests(util: Boolean = true) {
     androidTestImplementation(Tests.Turbine.Core)
     androidTestImplementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 
-    if(util) {
+    if (util) {
         androidTestImplementationProject(":util:android-test")
     }
 }

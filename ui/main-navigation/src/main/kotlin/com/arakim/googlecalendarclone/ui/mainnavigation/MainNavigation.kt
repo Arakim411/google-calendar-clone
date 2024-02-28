@@ -13,12 +13,12 @@ import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestinat
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction.NavigateAction
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction.NavigateBackAction
+import com.arakim.googlecalendarclone.ui.navigationdrawer.AppNavigationDrawerView
 import com.arakim.googlecalendarclone.ui.screen.home.HomeScreen
 import com.arakim.googlecalendarclone.ui.screen.signin.compose.SignInScreen
 import com.arakim.googlecalendarclone.ui.screen.splash.SplashScreen
 
 // TODO intent filters for notifications itd..
-// TODO common side/top bar controller state
 
 @Composable
 fun MainNavigation(
@@ -46,24 +46,25 @@ fun MainNavigation(
             NavigateBackAction -> navController.popBackStack()
         }
     }
+    AppNavigationDrawerView {
+        NavHost(
+            navController = navController,
+            startDestination = SplashDestination.Route,
+        ) {
+            composable(SplashDestination.Route) {
+                SplashScreen(
+                    navigate = ::handleNavigationAction,
+                    showNativeSplash = showNativeSplash,
+                )
+            }
 
-    NavHost(
-        navController = navController,
-        startDestination = SplashDestination.Route,
-    ) {
-        composable(SplashDestination.Route) {
-            SplashScreen(
-                navigate = ::handleNavigationAction,
-                showNativeSplash = showNativeSplash,
-            )
-        }
+            composable(SignInDestination.Route) {
+                SignInScreen(navigate = ::handleNavigationAction)
+            }
 
-        composable(SignInDestination.Route) {
-            SignInScreen(navigate = ::handleNavigationAction)
-        }
-
-        composable(HomeDestination.Route) {
-            HomeScreen()
+            composable(HomeDestination.Route) {
+                HomeScreen()
+            }
         }
     }
 }

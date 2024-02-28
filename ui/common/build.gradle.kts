@@ -11,5 +11,5 @@ apply<AndroidComposeModulePlugin>()
 
 dependencies {
 
-    compose()
+    compose(common = false)
 }
