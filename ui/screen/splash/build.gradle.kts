@@ -22,7 +22,6 @@ apply<AndroidComposeModulePlugin>()
 dependencies {
     implementation(project(":domain:user:sign-in"))
     implementation(project(":ui:main-navigation:destination"))
-    implementation(project(":ui:common"))
 
     implementation(AndroidX.Core.SplashScreen)
 
