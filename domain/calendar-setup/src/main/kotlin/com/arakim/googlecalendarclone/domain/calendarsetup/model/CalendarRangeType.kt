@@ -1,4 +1,4 @@
-package com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model
+package com.arakim.googlecalendarclone.domain.calendarsetup.model
 
 enum class CalendarRangeType(
     val id: String,

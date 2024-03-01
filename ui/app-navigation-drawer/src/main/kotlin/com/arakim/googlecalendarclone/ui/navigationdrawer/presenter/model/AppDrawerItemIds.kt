@@ -1,5 +1,7 @@
 package com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model
 
+import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType
+
 object AppDrawerItemIds {
     val ScheduleId = CalendarRangeType.Schedule.id
     val DayId = CalendarRangeType.Day.id

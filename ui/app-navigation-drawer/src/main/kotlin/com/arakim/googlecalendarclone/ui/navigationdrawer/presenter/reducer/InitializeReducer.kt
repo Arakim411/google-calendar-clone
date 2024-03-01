@@ -3,6 +3,7 @@ package com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.reducer
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.CoreDrawerAction.SetGroupsAction
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.CoreDrawerState
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.CoreNavigationDrawerPresenter
+import com.arakim.googlecalendarclone.domain.calendarsetup.usecases.GetCalendarSetUpUseCase
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.Action
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction.InitializationAction
@@ -11,6 +12,7 @@ import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAct
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerState.ErrorState
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerState.InitializingState
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.State
+import com.arakim.googlecalendarclone.util.kotlin.getOrThrow
 import com.arakim.googlecalendarclone.util.kotlin.yielded
 import com.arakim.googlecalendarclone.util.mvi.StateReducer
 import javax.inject.Inject
@@ -23,7 +25,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withTimeout
 
-class InitializeReducer @Inject constructor() : StateReducer<State, Action, InitializationAction>() {
+class InitializeReducer @Inject constructor(
+    private val getCalendarSetUp: GetCalendarSetUpUseCase
+) : StateReducer<State, Action, InitializationAction>() {
 
     lateinit var coreDrawerPresenter: CoreNavigationDrawerPresenter
     private var coreStateUpdateJob: Job? = null
@@ -41,8 +45,9 @@ class InitializeReducer @Inject constructor() : StateReducer<State, Action, Init
     }
 
     private suspend fun initialize(userName: String) {
-        coreDrawerPresenter.onAction(SetGroupsAction(getDrawerItemsGroups(userName)))
         try {
+            val setUp = getCalendarSetUp().getOrThrow()
+            coreDrawerPresenter.onAction(SetGroupsAction(getDrawerItemsGroups(userName, setUp)))
             withTimeout(initializationTimeOut) { waitForCoreDrawerReadyState() }
             listenForCoreDrawerStatesUpdates()
         } catch (t: TimeoutCancellationException) {

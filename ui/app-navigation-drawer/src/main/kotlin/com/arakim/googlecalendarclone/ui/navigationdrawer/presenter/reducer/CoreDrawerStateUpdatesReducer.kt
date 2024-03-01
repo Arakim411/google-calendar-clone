@@ -5,6 +5,9 @@ import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.CoreD
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.CoreNavigationDrawerPresenter
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItem.CheckBoxItem
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItemGroup.GroupWithSelectedItem
+import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType
+import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarSetUp
+import com.arakim.googlecalendarclone.domain.calendarsetup.usecases.SaveCalendarSetUpUseCase
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.Action
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction.CoreStateChangedAction
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerState
@@ -17,12 +20,12 @@ import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.AppDra
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.AppDrawerItemIds.EventsId
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.AppDrawerItemIds.HolidaysId
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.AppDrawerItemIds.TasksId
-import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.CalendarRangeType
 import com.arakim.googlecalendarclone.util.mvi.StateReducerWithSideEffect
 import javax.inject.Inject
 
-class CoreDrawerStateUpdatesReducer @Inject constructor() :
-    StateReducerWithSideEffect<State, Action, CoreStateChangedAction, SideEffect>() {
+class CoreDrawerStateUpdatesReducer @Inject constructor(
+    private val saveCalendarSetUp: SaveCalendarSetUpUseCase,
+) : StateReducerWithSideEffect<State, Action, CoreStateChangedAction, SideEffect>() {
 
     lateinit var coreDrawerPresenter: CoreNavigationDrawerPresenter
 
@@ -35,17 +38,27 @@ class CoreDrawerStateUpdatesReducer @Inject constructor() :
     }
 
     private fun handleCoreStateReady(readyState: ReadyState): State = try {
+        val setUp = readyState.getCalendarSetUp()
+        saveCalendarSetUp(setUp)
         AppDrawerState.ReadyState(
-            calendarRangeType = readyState.getSelectedRangeItem(),
-            isEventsChecked = readyState.isItemChecked(EventsId),
-            isTasksChecked = readyState.isItemChecked(TasksId),
-            isBirthdaysChecked = readyState.isItemChecked(BirthdaysId),
-            isHolidaysChecked = readyState.isItemChecked(HolidaysId),
+            calendarRangeType = setUp.rangeType,
+            isEventsChecked = setUp.isEventsChecked,
+            isTasksChecked = setUp.isTasksChecked,
+            isBirthdaysChecked = setUp.isBirthdaysChecked,
+            isHolidaysChecked = setUp.isHolidaysChecked,
         )
     } catch (t: Throwable) {
         AppDrawerState.ErrorState
     }
 }
+
+private fun ReadyState.getCalendarSetUp(): CalendarSetUp = CalendarSetUp(
+    rangeType = getSelectedRangeItem(),
+    isEventsChecked = isItemChecked(EventsId),
+    isTasksChecked = isItemChecked(TasksId),
+    isBirthdaysChecked = isItemChecked(BirthdaysId),
+    isHolidaysChecked = isItemChecked(HolidaysId),
+)
 
 private fun ReadyState.getSelectedRangeItem(): CalendarRangeType {
     val rangeGroups = groups

@@ -61,6 +61,7 @@ android {
 
 dependencies {
     implementation(project(":data:sign-in"))
+    implementation(project(":data:calendar-setup"))
     implementation(project(":ui:main-navigation"))
     implementation(project(":ui:main-navigation:destination"))
     implementation(project(":util:compose"))
