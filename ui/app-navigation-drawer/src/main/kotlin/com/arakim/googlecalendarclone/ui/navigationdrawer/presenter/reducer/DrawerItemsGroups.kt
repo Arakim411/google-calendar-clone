@@ -5,6 +5,7 @@ import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItem.ClickableItem.IconItem
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItemGroup.DefaultGroup
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItemGroup.GroupWithSelectedItem
+import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarSetUp
 import com.arakim.googlecalendarclone.ui.appnavigationdrawer.R.drawable
 import com.arakim.googlecalendarclone.ui.appnavigationdrawer.R.string
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.AppDrawerGroupsId
@@ -13,14 +14,17 @@ import com.arakim.googlecalendarclone.util.compose.StringWrapper.StringResources
 import com.arakim.googlecalendarclone.util.compose.StringWrapper.StringValue
 import com.arakim.googlecalendarclone.util.compose.immutableListOf
 
-internal fun getDrawerItemsGroups(userName: String) = immutableListOf(
+internal fun getDrawerItemsGroups(
+    userName: String,
+    setUp: CalendarSetUp
+) = immutableListOf(
     GroupWithSelectedItem(
         id = AppDrawerGroupsId.RangeGroupId,
-        selectedItemId = AppDrawerItemIds.ScheduleId, // TODO take from shared pref
+        selectedItemId = setUp.rangeType.id,
         items = rangeItems(),
     ),
     DefaultGroup(AppDrawerGroupsId.RefreshItemGroupId, refreshItem()),
-    DefaultGroup(AppDrawerGroupsId.AccountItemAndChecksGroupId, accountAndCheckBoxItems(userName)),
+    DefaultGroup(AppDrawerGroupsId.AccountItemAndChecksGroupId, accountAndCheckBoxItems(userName, setUp)),
     DefaultGroup(AppDrawerGroupsId.SettingsGroupId, settingsAndHelpItems())
 )
 
@@ -60,28 +64,31 @@ private fun refreshItem() = immutableListOf(
     ),
 )
 
-private fun accountAndCheckBoxItems(userName: String) = immutableListOf(
+private fun accountAndCheckBoxItems(
+    userName: String,
+    setUp: CalendarSetUp
+) = immutableListOf(
     AccountItem(
         id = AppDrawerItemIds.AccountId,
         title = StringValue(userName),
     ),
     CheckBoxItem(
-        isChecked = true,
+        isChecked = setUp.isEventsChecked,
         id = AppDrawerItemIds.EventsId,
         title = StringResources(string.drawer_item_events),
     ),
     CheckBoxItem(
-        isChecked = true,
+        isChecked = setUp.isTasksChecked,
         id = AppDrawerItemIds.TasksId,
         title = StringResources(string.drawer_item_title_tasks),
     ),
     CheckBoxItem(
-        isChecked = true,
+        isChecked = setUp.isBirthdaysChecked,
         id = AppDrawerItemIds.BirthdaysId,
         title = StringResources(string.drawer_item_title_birthdays),
     ),
     CheckBoxItem(
-        isChecked = true,
+        isChecked = setUp.isHolidaysChecked,
         id = AppDrawerItemIds.HolidaysId,
         title = StringResources(string.drawer_item_title_holidays),
     ),

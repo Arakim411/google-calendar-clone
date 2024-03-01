@@ -1,4 +1,3 @@
-
 import com.arakim.googlecalendarclone.dependencies.compose
 import com.arakim.googlecalendarclone.dependencies.composeHiltNavigation
 import com.arakim.googlecalendarclone.dependencies.composeTest
@@ -18,9 +17,10 @@ plugins {
 apply<AndroidComposeModulePlugin>()
 
 dependencies {
-    implementation(project(":ui:app-navigation-drawer:core"))
+    api(project(":domain:calendar-setup"))
     implementation(project(":domain:user"))
     implementation(project(":domain:user:sign-in"))
+    implementation(project(":ui:app-navigation-drawer:core"))
 
     jvmTests()
     composeTest()

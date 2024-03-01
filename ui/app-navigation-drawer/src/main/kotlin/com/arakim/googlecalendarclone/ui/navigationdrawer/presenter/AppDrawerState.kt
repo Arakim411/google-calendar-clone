@@ -1,7 +1,7 @@
 package com.arakim.googlecalendarclone.ui.navigationdrawer.presenter
 
 import androidx.compose.runtime.Immutable
-import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.CalendarRangeType
+import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType
 
 @Immutable
 sealed interface AppDrawerState {
