@@ -1,8 +1,12 @@
 package com.arakim.googlecalendarclone.ui.mainnavigation
 
+import androidx.compose.material3.DrawerValue.Closed
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,10 +17,12 @@ import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestinat
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction.NavigateAction
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction.NavigateBackAction
+import com.arakim.googlecalendarclone.ui.navigationdrawer.AppDrawerViewModel
 import com.arakim.googlecalendarclone.ui.navigationdrawer.AppNavigationDrawerView
 import com.arakim.googlecalendarclone.ui.screen.home.HomeScreen
 import com.arakim.googlecalendarclone.ui.screen.signin.compose.SignInScreen
 import com.arakim.googlecalendarclone.ui.screen.splash.SplashScreen
+import kotlinx.coroutines.launch
 
 // TODO intent filters for notifications itd..
 
@@ -25,6 +31,11 @@ fun MainNavigation(
     navController: NavHostController = rememberNavController(),
     showNativeSplash: MutableState<Boolean>,
 ) {
+
+    val appDrawerViewModel = hiltViewModel<AppDrawerViewModel>()
+    val drawerState = rememberDrawerState(initialValue = Closed)
+
+    val coroutineScope = rememberCoroutineScope()
 
     @Stable
     fun navigate(action: NavigateAction) {
@@ -39,6 +50,16 @@ fun MainNavigation(
         }
     }
 
+    fun changeIsDrawerOpen(isOpen: Boolean) {
+        coroutineScope.launch {
+            if (isOpen) {
+                drawerState.open()
+            } else {
+                drawerState.close()
+            }
+        }
+    }
+
     @Stable
     fun handleNavigationAction(action: NavigationAction) {
         when (action) {
@@ -46,7 +67,10 @@ fun MainNavigation(
             NavigateBackAction -> navController.popBackStack()
         }
     }
-    AppNavigationDrawerView {
+    AppNavigationDrawerView(
+        viewModel = appDrawerViewModel,
+        drawerState = drawerState,
+    ) {
         NavHost(
             navController = navController,
             startDestination = SplashDestination.Route,
@@ -63,7 +87,9 @@ fun MainNavigation(
             }
 
             composable(HomeDestination.Route) {
-                HomeScreen()
+                HomeScreen(
+                    changeIsDrawerOpen = ::changeIsDrawerOpen,
+                )
             }
         }
     }
