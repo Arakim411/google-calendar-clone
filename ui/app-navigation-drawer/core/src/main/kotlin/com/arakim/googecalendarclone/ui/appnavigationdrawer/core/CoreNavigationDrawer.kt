@@ -9,17 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DrawerState
-import androidx.compose.material3.DrawerValue.Closed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -41,11 +38,12 @@ import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItemGroup.DefaultGroup
 import com.arakim.googecalendarclone.ui.appnavigationdrawer.core.presenter.model.DrawerItemGroup.GroupWithSelectedItem
 import com.arakim.googlecalendarclone.util.compose.ImmutableList
+import com.arakim.googlecalendarclone.util.compose.getString
 
 @Composable
 fun CoreNavigationDrawer(
     corePresenter: CoreNavigationDrawerPresenter,
-    drawerState: DrawerState = rememberDrawerState(initialValue = Closed),
+    drawerState: DrawerState,
     content: @Composable () -> Unit,
     title: @Composable () -> Unit,
 ) {
@@ -150,7 +148,7 @@ private fun DrawerItemView(
             }
 
             is DrawerItem.CheckBoxItem -> {
-                val color = remember(item.title) { getCheckBoxColor(item.title) }
+                val color = getCheckBoxColor(item.title.getString())
                 Checkbox(
                     checked = item.isChecked,
                     onCheckedChange = null,
@@ -163,7 +161,7 @@ private fun DrawerItemView(
     NavigationDrawerItem(
         label = {
             Text(
-                text = item.title,
+                text = item.title.getString(),
                 fontWeight = getFontWeight(item),
                 fontSize = getFontSize(item),
             )

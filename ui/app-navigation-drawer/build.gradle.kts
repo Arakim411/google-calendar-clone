@@ -19,6 +19,8 @@ apply<AndroidComposeModulePlugin>()
 
 dependencies {
     implementation(project(":ui:app-navigation-drawer:core"))
+    implementation(project(":domain:user"))
+    implementation(project(":domain:user:sign-in"))
 
     jvmTests()
     composeTest()
