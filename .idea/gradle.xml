@@ -23,12 +23,16 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/calendar-info" />
+            <option value="$PROJECT_DIR$/data/calendar-info/fake" />
+            <option value="$PROJECT_DIR$/data/calendar-info/google" />
             <option value="$PROJECT_DIR$/data/calendar-setup" />
             <option value="$PROJECT_DIR$/data/sign-in" />
             <option value="$PROJECT_DIR$/data/sign-in/common" />
             <option value="$PROJECT_DIR$/data/sign-in/fake" />
             <option value="$PROJECT_DIR$/data/sign-in/google" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/calendar-info" />
             <option value="$PROJECT_DIR$/domain/calendar-setup" />
             <option value="$PROJECT_DIR$/domain/user" />
             <option value="$PROJECT_DIR$/domain/user/sign-in" />

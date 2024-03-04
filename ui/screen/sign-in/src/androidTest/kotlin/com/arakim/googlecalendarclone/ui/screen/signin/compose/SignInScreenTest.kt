@@ -6,8 +6,8 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.FakeMethod
 import com.arakim.googlecalendarclone.domain.user.signin.SignInService
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.FakeMethod
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction
 import com.arakim.googlecalendarclone.ui.screen.signin.SignInViewModel
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInPresenter

@@ -6,9 +6,9 @@ import androidx.test.core.app.ApplicationProvider
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
+import com.arakim.googlecaelndarclone.domain.user.SignInMethodId
 import com.arakim.googlecalendarclone.data.signin.common.AuthUser
 import com.arakim.googlecalendarclone.data.signin.common.toJson
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId
 import com.arakim.googlecalendarclone.util.test.randomString
 import org.junit.Before
 import org.junit.Test

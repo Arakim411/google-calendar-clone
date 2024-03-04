@@ -1,7 +1,7 @@
 package com.arakim.googlecalendarclone.domain.user.signin.usecases
 
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod
 import com.arakim.googlecalendarclone.domain.user.signin.SignInService
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod
 import javax.inject.Inject
 
 class SignInUserUseCase @Inject constructor(

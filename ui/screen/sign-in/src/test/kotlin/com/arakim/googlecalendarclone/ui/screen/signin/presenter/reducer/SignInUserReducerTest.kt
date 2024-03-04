@@ -2,9 +2,9 @@ package com.arakim.googlecalendarclone.ui.screen.signin.presenter.reducer
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.FakeMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.GoogleMethod
 import com.arakim.googlecaelndarclone.domain.user.User.SignedUser
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.FakeMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.GoogleMethod
 import com.arakim.googlecalendarclone.domain.user.signin.usecases.SignInUserUseCase
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction.SignInUserWithFake
