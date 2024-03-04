@@ -10,5 +10,5 @@ sealed interface CommonError {
 
     data object UnknownError : CommonError
 
-    data class OtherError(val message: String) : CommonError
+    data class OtherError(val error: Throwable) : CommonError
 }

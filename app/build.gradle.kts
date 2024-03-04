@@ -65,6 +65,8 @@ dependencies {
     implementation(project(":ui:main-navigation"))
     implementation(project(":ui:main-navigation:destination"))
     implementation(project(":util:compose"))
+    implementation(project(":data:calendar-info:google"))
+    implementation(project(":data:calendar-info:fake"))
     kaptAndroidTestRelease(project(":util:android-test"))
 
     implementation(AndroidX.Core.SplashScreen)

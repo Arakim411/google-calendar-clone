@@ -1,6 +1,6 @@
 package com.arakim.googlecalendarclone.data.signin.common
 
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId
+import com.arakim.googlecaelndarclone.domain.user.SignInMethodId
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 

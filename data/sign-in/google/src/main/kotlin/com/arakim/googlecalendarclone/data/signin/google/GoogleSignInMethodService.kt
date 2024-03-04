@@ -1,10 +1,10 @@
 package com.arakim.googlecalendarclone.data.signin.google
 
 import android.content.Context
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.GoogleMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethodId.Google
 import com.arakim.googlecalendarclone.data.signin.common.AuthUser
 import com.arakim.googlecalendarclone.data.signin.common.SignInMethodService
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.GoogleMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId.Google
 import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 import com.arakim.googlecalendarclone.util.kotlin.executeCommonIoAction

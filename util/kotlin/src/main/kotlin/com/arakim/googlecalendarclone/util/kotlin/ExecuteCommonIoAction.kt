@@ -9,5 +9,5 @@ suspend inline fun <T> executeCommonIoAction(
 } catch (e: CancellationException) {
     throw e
 } catch (t: Throwable) {
-    TypedResult.failure(CommonError.OtherError(t.message ?: "Unknown error"))
+    TypedResult.failure(CommonError.OtherError(t))
 }

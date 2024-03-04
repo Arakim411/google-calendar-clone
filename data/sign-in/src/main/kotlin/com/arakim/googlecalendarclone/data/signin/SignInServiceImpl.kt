@@ -1,5 +1,10 @@
 package com.arakim.googlecalendarclone.data.signin
 
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.FakeMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.GoogleMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethodId.Fake
+import com.arakim.googlecaelndarclone.domain.user.SignInMethodId.Google
 import com.arakim.googlecaelndarclone.domain.user.User
 import com.arakim.googlecaelndarclone.domain.user.User.AnonymousUser
 import com.arakim.googlecaelndarclone.domain.user.User.SignedUser
@@ -9,11 +14,6 @@ import com.arakim.googlecalendarclone.data.signin.google.GoogleSignInMethodServi
 import com.arakim.googlecalendarclone.domain.user.signin.SignInService
 import com.arakim.googlecalendarclone.domain.user.signin.SignedUserResult
 import com.arakim.googlecalendarclone.domain.user.signin.UserResult
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.FakeMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.GoogleMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId.Fake
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethodId.Google
 import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 import com.arakim.googlecalendarclone.util.kotlin.map
@@ -70,5 +70,6 @@ class SignInServiceImpl @Inject constructor(
 }
 
 fun AuthUser.toDomain(): SignedUser = SignedUser(
-    name = name
+    name = name,
+    signInMethodId = methodId,
 )

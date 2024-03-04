@@ -61,6 +61,12 @@ fun HomeScreen(
             Text(text = "open drawer")
         }
 
+        Button(onClick = {
+            viewModel.getCalendarInfo()
+        }) {
+            Text(text = "get calendar info")
+        }
+
         Text(text = "last side effect: ${lastSideEffect.value}")
 
         when (state) {

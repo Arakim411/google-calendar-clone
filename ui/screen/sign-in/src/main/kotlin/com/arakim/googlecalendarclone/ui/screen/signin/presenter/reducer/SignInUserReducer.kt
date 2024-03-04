@@ -1,8 +1,8 @@
 package com.arakim.googlecalendarclone.ui.screen.signin.presenter.reducer
 
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.FakeMethod
-import com.arakim.googlecalendarclone.domain.user.signin.model.SignInMethod.GoogleMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.FakeMethod
+import com.arakim.googlecaelndarclone.domain.user.SignInMethod.GoogleMethod
 import com.arakim.googlecalendarclone.domain.user.signin.usecases.SignInUserUseCase
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.Action
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SideEffect
