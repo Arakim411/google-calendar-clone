@@ -1,7 +1,8 @@
-
 import com.arakim.googlecalendarclone.dependencies.androidTests
 import com.arakim.googlecalendarclone.dependencies.hilt
 import com.arakim.googlecalendarclone.dependencies.jvmTests
+import com.arakim.googlecalendarclone.dependencies.libs.Google
+import com.arakim.googlecalendarclone.dependencies.moshi
 import com.arakim.googlecalendarclone.gradlebuild.plugins.AndroidModulePlugin
 
 plugins {
@@ -15,11 +16,17 @@ plugins {
 apply<AndroidModulePlugin>()
 
 dependencies {
-    api(project(":domain:user:sign-in"))
-    api(project(":data:sign-in:common"))
-    implementation(project(":data:sign-in:google"))
-    implementation(project(":data:sign-in:fake"))
+    implementation(project(":domain:calendar:user-calendar"))
+    implementation(project(":domain:user:sign-in"))
 
+    implementation(project(":data:sign-in:google"))
+    implementation(project(":data:sign-in"))
+
+    implementation(Google.PlayServices.Auth)
+    implementation(Google.Api.Calendar)
+    implementation(Google.Api.AndroidClient)
+
+    moshi()
     androidTests()
     jvmTests()
     hilt()

@@ -1,8 +1,10 @@
 package com.arakim.googlecalendarclone.gradlebuild.plugins
 
 import com.arakim.googlecalendarclone.dependencies.apiProject
+import com.arakim.googlecalendarclone.dependencies.coreLibraryDesugar
 import com.arakim.googlecalendarclone.dependencies.implementation
 import com.arakim.googlecalendarclone.dependencies.libs.Kotlin
+import com.arakim.googlecalendarclone.dependencies.libs.Tools
 import com.arakim.googlecalendarclone.gradlebuild.Android
 import com.arakim.googlecalendarclone.gradlebuild.BuildJvm
 import com.arakim.googlecalendarclone.gradlebuild.androidLibrary
@@ -21,6 +23,7 @@ open class AndroidModulePlugin : Plugin<Project> {
     private fun setUpSdkVersion(project: Project) {
         project.androidLibrary().apply {
             compileOptions.apply {
+                isCoreLibraryDesugaringEnabled = true
                 sourceCompatibility = BuildJvm.JvmTarget
                 targetCompatibility = BuildJvm.JvmTarget
             }
@@ -54,5 +57,6 @@ open class AndroidModulePlugin : Plugin<Project> {
     private fun setUpDependencies(project: Project) {
         project.dependencies.apiProject(":util:kotlin")
         project.dependencies.implementation(Kotlin.Coroutines.Core)
+        project.dependencies.coreLibraryDesugar(Tools.CoreLibraryDesugar)
     }
 }

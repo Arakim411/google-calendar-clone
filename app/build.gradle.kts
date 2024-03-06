@@ -1,9 +1,9 @@
-
 import com.arakim.googlecalendarclone.dependencies.androidX
 import com.arakim.googlecalendarclone.dependencies.compose
 import com.arakim.googlecalendarclone.dependencies.hilt
 import com.arakim.googlecalendarclone.dependencies.libs.AndroidX
 import com.arakim.googlecalendarclone.dependencies.libs.Compose
+import com.arakim.googlecalendarclone.dependencies.libs.Tools
 import com.arakim.googlecalendarclone.gradlebuild.Android
 import com.arakim.googlecalendarclone.gradlebuild.BuildJvm
 
@@ -40,6 +40,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = BuildJvm.JvmTarget
         targetCompatibility = BuildJvm.JvmTarget
     }
@@ -65,8 +66,8 @@ dependencies {
     implementation(project(":ui:main-navigation"))
     implementation(project(":ui:main-navigation:destination"))
     implementation(project(":util:compose"))
-    implementation(project(":data:calendar-info:google"))
-    implementation(project(":data:calendar-info:fake"))
+    implementation(project(":data:user-calendar:google"))
+    implementation(project(":data:user-calendar:fake"))
     kaptAndroidTestRelease(project(":util:android-test"))
 
     implementation(AndroidX.Core.SplashScreen)
@@ -74,6 +75,6 @@ dependencies {
     androidX()
     compose()
     hilt()
-
+    coreLibraryDesugaring(Tools.CoreLibraryDesugar)
     implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 }
