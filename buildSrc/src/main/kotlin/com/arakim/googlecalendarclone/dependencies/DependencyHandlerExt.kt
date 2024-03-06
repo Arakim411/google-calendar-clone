@@ -1,4 +1,5 @@
 @file:Suppress("TooManyFunctions")
+
 package com.arakim.googlecalendarclone.dependencies
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -6,6 +7,10 @@ import org.gradle.kotlin.dsl.project
 
 internal fun DependencyHandler.implementation(dependency: Any) {
     this.add("implementation", dependency)
+}
+
+internal fun DependencyHandler.coreLibraryDesugar(dependency: Any) {
+    this.add("coreLibraryDesugaring", dependency)
 }
 
 internal fun DependencyHandler.debugImplementation(dependency: Any) {
