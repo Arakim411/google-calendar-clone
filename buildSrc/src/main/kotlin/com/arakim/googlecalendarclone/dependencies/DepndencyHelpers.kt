@@ -5,6 +5,8 @@ import com.arakim.googlecalendarclone.dependencies.libs.Compose
 import com.arakim.googlecalendarclone.dependencies.libs.Hilt
 import com.arakim.googlecalendarclone.dependencies.libs.Kotlin
 import com.arakim.googlecalendarclone.dependencies.libs.Moshi
+import com.arakim.googlecalendarclone.dependencies.libs.OkHttp
+import com.arakim.googlecalendarclone.dependencies.libs.Retrofit
 import com.arakim.googlecalendarclone.dependencies.libs.Tests
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
@@ -51,6 +53,19 @@ fun DependencyHandler.mvi() {
 
 fun DependencyHandler.kotlin() {
     implementation(Kotlin.Coroutines.Core)
+}
+
+fun DependencyHandler.retrofit(api: Boolean = false) {
+    if (api) {
+        api(Retrofit.Core)
+        api(Retrofit.Moshi)
+        api(OkHttp.Core)
+    } else {
+        implementation(Retrofit.Core)
+        implementation(Retrofit.Moshi)
+        implementation(OkHttp.Core)
+    }
+
 }
 
 fun DependencyHandler.moshi() {

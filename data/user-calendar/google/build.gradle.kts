@@ -21,6 +21,7 @@ dependencies {
 
     implementation(project(":data:sign-in:google"))
     implementation(project(":data:sign-in"))
+    implementation(project(":data:user-tasks"))
 
     implementation(Google.PlayServices.Auth)
     implementation(Google.Api.Calendar)

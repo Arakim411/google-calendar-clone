@@ -16,6 +16,7 @@ dependencies {
 
     implementation(Google.PlayServices.Auth)
     implementation(Google.Api.AndroidClient)
+    implementation(Google.Api.Task)
     implementation(Google.Api.Calendar)
     hilt()
 }

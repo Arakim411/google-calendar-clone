@@ -1,6 +1,7 @@
 package com.arakim.googlecalendarclone.data.calendarinfo.google.remote
 
-import com.arakim.googlecalendarclone.domain.calendar.usercalendar.model.UserEvent
+import com.arakim.googlecalendarclone.domain.calendar.usercalendar.model.CalendarEvent.UserEvent
+import com.arakim.googlecalendarclone.domain.calendar.usercalendar.model.CalendarEvent.WorldEvent
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import java.time.Instant
@@ -10,11 +11,12 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import javax.inject.Inject
 
+// TODO handle with "next page token" for pagination, for now we download only max 20 results
 class CalendarRemoteDataSource @Inject constructor(
     private val calendarHelper: AccessCalendarHelper,
 ) {
 
-    suspend fun getEvents(
+    suspend fun getUserEvents(
         minDate: LocalDate,
         maxDateTime: LocalDate,
     ): List<UserEvent> = calendarHelper.accessCalendar {
@@ -27,16 +29,42 @@ class CalendarRemoteDataSource @Inject constructor(
             .execute()
 
         events.items.map {
-            it.toDomain()
+            it.toUserEvent()
+        }
+    }
+
+    suspend fun getWorldEvents(
+        minDate: LocalDate,
+        maxDateTime: LocalDate,
+    ): List<WorldEvent> = calendarHelper.accessCalendar {
+        val events = events().list(HOLIDAY_CALENDAR_ID)
+            .setTimeMin(minDate.toDateTime())
+            .setTimeMax(maxDateTime.toDateTime())
+            .setSingleEvents(true)
+            .setOrderBy("startTime")
+            .execute()
+
+        events.items.map {
+            it.toWorldEvent()
         }
     }
 }
 
-private fun Event.toDomain(): UserEvent = UserEvent(
+private const val HOLIDAY_CALENDAR_ID = "en.usa#holiday@group.v.calendar.google.com"
+
+private fun Event.toUserEvent(): UserEvent = UserEvent(
     id = id,
-    name = this.summary,
+    title = this.summary,
     startDateTime = start.dateTime.toLocalDateTime(),
     endDateTime = end.dateTime.toLocalDateTime(),
+    description = description ?: ""
+)
+
+private fun Event.toWorldEvent(): WorldEvent = WorldEvent(
+    id = id,
+    title = this.summary,
+    startDateTime = this.end.date.toLocalDateTime(),
+    description = description ?: ""
 )
 
 private fun DateTime.toLocalDateTime(): LocalDateTime =
