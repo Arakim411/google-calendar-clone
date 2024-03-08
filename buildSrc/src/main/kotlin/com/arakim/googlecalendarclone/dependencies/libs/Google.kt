@@ -10,6 +10,7 @@ object Google {
     object Api {
         const val Version = "1.23.0"
         const val Calendar = "com.google.apis:google-api-services-calendar:v3-rev305-$Version"
+        const val Task = "com.google.apis:google-api-services-tasks:v1-rev58-$Version"
         const val AndroidClient = "com.google.api-client:google-api-client-android:$Version"
     }
 }

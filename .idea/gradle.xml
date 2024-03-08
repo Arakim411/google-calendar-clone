@@ -24,6 +24,8 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/calendar-setup" />
+            <option value="$PROJECT_DIR$/data/retrofit" />
+            <option value="$PROJECT_DIR$/data/retrofit/google-tasks" />
             <option value="$PROJECT_DIR$/data/sign-in" />
             <option value="$PROJECT_DIR$/data/sign-in/common" />
             <option value="$PROJECT_DIR$/data/sign-in/fake" />
@@ -31,6 +33,7 @@
             <option value="$PROJECT_DIR$/data/user-calendar" />
             <option value="$PROJECT_DIR$/data/user-calendar/fake" />
             <option value="$PROJECT_DIR$/data/user-calendar/google" />
+            <option value="$PROJECT_DIR$/data/user-tasks" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/calendar" />
             <option value="$PROJECT_DIR$/domain/calendar-setup" />

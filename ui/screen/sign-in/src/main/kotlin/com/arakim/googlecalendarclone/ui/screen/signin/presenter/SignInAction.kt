@@ -6,6 +6,7 @@ sealed interface SignInAction {
 
     data class SignInUserWithGoogle(val accountName: String) : SignInAction
     data object SignInUserWithFake : SignInAction
+    data object RetrySignIn : SignInAction
 
     data class SignedInErrorAction(val error: CommonError) : SignInAction
 }

@@ -15,24 +15,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.arakim.googlecalendarclone.ui.common.CommonErrorView
 import com.arakim.googlecalendarclone.ui.common.CommonLoaderView
-import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestination
+import com.arakim.googlecalendarclone.ui.mainnavigation.destination.MainDestination.HomeDestination
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAction
 import com.arakim.googlecalendarclone.ui.mainnavigation.destination.toAction
 import com.arakim.googlecalendarclone.ui.screen.signin.SignInViewModel
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction
+import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction.RetrySignIn
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction.SignInUserWithFake
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction.SignInUserWithGoogle
+import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInAction.SignedInErrorAction
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInSideEffect.SignedInSideEffect
+import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInSideEffect.UserRecoverableAuthExceptionSideEffect
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInState.ErrorState
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInState.ReadyState
 import com.arakim.googlecalendarclone.ui.screen.signin.presenter.SignInState.SigningInState
+import com.arakim.googlecalendarclone.ui.screen.signin.rememberAuthExceptionHelper
 import com.arakim.googlecalendarclone.ui.screen.signin.rememberPickAccountHelper
+import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-// TODO navigation
-// TODO different screen sizes
-// correct support dark theme
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel<SignInViewModel>(),
@@ -41,27 +43,41 @@ fun SignInScreen(
 
     val presenter = viewModel.presenter
     val state = presenter.stateFlow.collectAsStateWithLifecycle()
+    val exceptionHelper = rememberAuthExceptionHelper(
+        onGainPermission = {
+            presenter.onAction(RetrySignIn)
+        },
+        onFailToGainPermission = {
+            presenter.onAction(SignedInErrorAction(CommonError.OtherError(it)))
+        },
+    )
 
     LaunchedEffect(Unit) {
         presenter.sideEffectFlow.onEach {
             when (it) {
-                is SignedInSideEffect -> navigate(MainDestination.HomeDestination.toAction())
+                is SignedInSideEffect -> navigate(HomeDestination.toAction())
+                is UserRecoverableAuthExceptionSideEffect -> exceptionHelper.askForPermission(it.exception)
             }
         }.launchIn(this)
     }
 
     Crossfade(targetState = state.value, label = "") { stateValue ->
         when (stateValue) {
-            is ErrorState -> CommonErrorView()
+            is ErrorState -> CommonErrorView(
+                onRetry = {
+                    presenter.onAction(RetrySignIn)
+                }
+            )
+
             ReadyState -> ReadyState(onAction = presenter::onAction)
-            SigningInState -> CommonLoaderView()
+            is SigningInState -> CommonLoaderView()
         }
     }
 }
 
 @Composable
 private fun ReadyState(
-    onAction: (SignInAction) -> Unit
+    onAction: (SignInAction) -> Unit,
 ) {
     val pickAccountHelper = rememberPickAccountHelper(
         onAccountPicked = { account ->

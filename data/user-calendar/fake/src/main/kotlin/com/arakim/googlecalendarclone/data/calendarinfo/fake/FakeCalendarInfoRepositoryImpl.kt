@@ -14,6 +14,12 @@ class FakeCalendarInfoRepositoryImpl @Inject constructor() : UserCalendarReposit
         fromDate: LocalDate,
         toDate: LocalDate,
     ): TypedResult<UserCalendarInfo, CommonError> {
-        return TypedResult.success(UserCalendarInfo(emptyList()))
+        return TypedResult.success(
+            UserCalendarInfo(
+                userTasks = emptyList(),
+                userEvents = emptyList(),
+                worldEvents = emptyList(),
+            )
+        )
     }
 }

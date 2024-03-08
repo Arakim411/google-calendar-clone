@@ -8,7 +8,7 @@ sealed interface SignInState {
 
     data object ReadyState : SignInState
 
-    data object SigningInState : SignInState
+    data class SigningInState(val action: SignInAction) : SignInState
 
     data class ErrorState(val error: CommonError) : SignInState
 }
