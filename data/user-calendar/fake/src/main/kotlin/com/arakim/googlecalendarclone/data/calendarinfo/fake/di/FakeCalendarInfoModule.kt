@@ -2,7 +2,7 @@ package com.arakim.googlecalendarclone.data.calendarinfo.fake.di
 
 import com.arakim.googlecaelndarclone.domain.user.SignInMethodId
 import com.arakim.googlecalendarclone.data.calendarinfo.fake.FakeCalendarInfoRepositoryImpl
-import com.arakim.googlecalendarclone.domain.calendar.usercalendar.UserCalendarRepository
+import com.arakim.googlecalendarclone.domain.calendarinfo.UserCalendarRepository
 import com.arakim.googlecalendarclone.domain.user.signin.model.SignedUserTypeKey
 import dagger.Binds
 import dagger.Module

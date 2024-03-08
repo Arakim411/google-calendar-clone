@@ -1,7 +1,7 @@
 package com.arakim.googlecalendarclone.data.calendarinfo.google.remote
 
-import com.arakim.googlecalendarclone.domain.calendar.usercalendar.model.CalendarEvent.UserEvent
-import com.arakim.googlecalendarclone.domain.calendar.usercalendar.model.CalendarEvent.WorldEvent
+import com.arakim.googlecalendarclone.domain.calendarinfo.model.CalendarEvent.UserEvent
+import com.arakim.googlecalendarclone.domain.calendarinfo.model.CalendarEvent.WorldEvent
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import java.time.Instant

@@ -2,8 +2,7 @@ package com.arakim.googlecalendarclone.data.calendarinfo.google
 
 import com.arakim.googlecalendarclone.data.calendarinfo.google.remote.CalendarRemoteDataSource
 import com.arakim.googlecalendarclone.data.usertasks.UserTasksRepositoryImpl
-import com.arakim.googlecalendarclone.domain.calendar.usercalendar.UserCalendarRepository
-import com.arakim.googlecalendarclone.domain.calendar.usercalendar.model.UserCalendarInfo
+import com.arakim.googlecalendarclone.domain.calendarinfo.model.UserCalendarInfo
 import com.arakim.googlecalendarclone.util.kotlin.CommonError
 import com.arakim.googlecalendarclone.util.kotlin.TypedResult
 import com.arakim.googlecalendarclone.util.kotlin.executeCommonNetworkCall
@@ -18,7 +17,7 @@ import kotlinx.coroutines.coroutineScope
 class GoogleCalendarInfoRepositoryImpl @Inject constructor(
     private val calendarRemoteDataSource: CalendarRemoteDataSource,
     private val userTasksRemoteDataSource: UserTasksRepositoryImpl,
-) : UserCalendarRepository {
+) : com.arakim.googlecalendarclone.domain.calendarinfo.UserCalendarRepository {
 
     override suspend fun getUserCalendarInfo(
         fromDate: LocalDate,
@@ -33,7 +32,7 @@ class GoogleCalendarInfoRepositoryImpl @Inject constructor(
                 toDate = toDate
             ).getOrThrow()
 
-            UserCalendarInfo(
+            com.arakim.googlecalendarclone.domain.calendarinfo.model.UserCalendarInfo(
                 userEvents = userEvents.await(),
                 worldEvents = worldEvents.await(),
                 userTasks = userTasks,

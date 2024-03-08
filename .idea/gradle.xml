@@ -37,13 +37,14 @@
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/calendar" />
             <option value="$PROJECT_DIR$/domain/calendar-setup" />
-            <option value="$PROJECT_DIR$/domain/calendar/user-calendar" />
             <option value="$PROJECT_DIR$/domain/user" />
             <option value="$PROJECT_DIR$/domain/user/sign-in" />
             <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/ui/app-navigation-drawer" />
             <option value="$PROJECT_DIR$/ui/app-navigation-drawer/core" />
+            <option value="$PROJECT_DIR$/ui/calendar" />
             <option value="$PROJECT_DIR$/ui/common" />
+            <option value="$PROJECT_DIR$/ui/common/calendar-range" />
             <option value="$PROJECT_DIR$/ui/main-navigation" />
             <option value="$PROJECT_DIR$/ui/main-navigation/destination" />
             <option value="$PROJECT_DIR$/ui/screen" />

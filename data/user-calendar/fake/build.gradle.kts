@@ -16,7 +16,7 @@ plugins {
 apply<AndroidModulePlugin>()
 
 dependencies {
-    implementation(project(":domain:calendar:user-calendar"))
+    implementation(project(":domain:calendar"))
     implementation(project(":domain:user:sign-in"))
 
     moshi()
