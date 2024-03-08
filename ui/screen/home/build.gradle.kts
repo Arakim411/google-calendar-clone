@@ -16,9 +16,9 @@ plugins {
 apply<AndroidComposeModulePlugin>()
 
 dependencies {
-    implementation(project(":domain:user:sign-in"))
+    implementation(project(":ui:common:calendar-range"))
     implementation(project(":ui:app-navigation-drawer"))
-    implementation(project(":domain:calendar:user-calendar"))
+    implementation(project(":ui:calendar"))
 
     implementation(Google.Api.AndroidClient)
     implementation(Google.PlayServices.Auth)
