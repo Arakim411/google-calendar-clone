@@ -15,9 +15,9 @@ import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.IdleSt
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.InitializingState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.DayState
-import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.Days3State
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.MonthState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ScheduleState
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ThreeDaysState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.WeekState
 import com.arakim.googlecalendarclone.ui.common.CommonErrorView
 import com.arakim.googlecalendarclone.ui.common.CommonLoaderView
@@ -42,7 +42,7 @@ fun CalendarView(presenter: CalendarPresenter) {
 private fun ReadyState(state: ReadyState) {
     when (state) {
         is DayState -> NotReadyView(text = "dayState")
-        is Days3State -> NotReadyView(text = "3dayState")
+        is ThreeDaysState -> NotReadyView(text = "3dayState")
         is MonthState -> NotReadyView(text = "month")
         is ScheduleState -> ScheduleStateView(state)
         is WeekState -> NotReadyView(text = "week")

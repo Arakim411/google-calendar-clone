@@ -17,4 +17,13 @@ fun CalendarInfoUiModel.getEventInDay(day: Day): List<Event>? =
 fun CalendarInfoUiModel.getEventsInMonth(month: Month): List<Event>? =
     monthsToEvents[month]?.values?.flatten()
 
+@Stable
+fun CalendarInfoUiModel.getEventsInRange(
+    month: Month,
+    fromDay: Int,
+    toDay: Int,
+): Map<Day, List<Event>> {
+    return monthsToEvents[month]?.filter { it.key.day in fromDay..toDay } ?: emptyMap()
+}
+
 fun Day.toMonth(): Month = Month(this.month, this.year)

@@ -43,25 +43,25 @@ class BuildCalendarRangeSubHelper @Inject constructor() {
         }
     }
 
-    private fun LocalDate.toCalendarDay(): Day = Day(
-        year = year,
-        month = monthValue,
-        day = dayOfMonth
-    )
-
-    private fun LocalDate.toCalendarMonth(): Month = Month(
-        year = year,
-        month = monthValue
-    )
-
-    private fun LocalDateTime.toCalendarDay(): Day = Day(
-        year = year,
-        month = monthValue,
-        day = dayOfMonth
-    )
-
     private fun List<CalendarEvent>.getInDay(day: Day) = filter { it.startDateTime.toCalendarDay() == day }
 
     private fun UserCalendarInfo.getEventsInDay(day: Day): List<Event> =
         userEvents.getInDay(day) + userTasks.getInDay(day) + worldEvents.getInDay(day)
 }
+
+fun LocalDate.toCalendarDay(): Day = Day(
+    year = year,
+    month = monthValue,
+    day = dayOfMonth
+)
+
+fun LocalDate.toCalendarMonth(): Month = Month(
+    year = year,
+    monthValue = monthValue
+)
+
+fun LocalDateTime.toCalendarDay(): Day = Day(
+    year = year,
+    month = monthValue,
+    day = dayOfMonth
+)

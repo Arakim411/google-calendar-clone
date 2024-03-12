@@ -28,6 +28,7 @@ class GetCalendarRangeHelper @Inject constructor(
         ).onFailure {
             return TypedResult.failure(it)
         }
+
         val calendarRange = buildCalendarRange(
             userCalendar.getOrThrow(),
             referenceDate.minusDays(CalendarRangeDays),

@@ -32,7 +32,7 @@ class GoogleCalendarInfoRepositoryImpl @Inject constructor(
                 toDate = toDate
             ).getOrThrow()
 
-            com.arakim.googlecalendarclone.domain.calendarinfo.model.UserCalendarInfo(
+            UserCalendarInfo(
                 userEvents = userEvents.await(),
                 worldEvents = worldEvents.await(),
                 userTasks = userTasks,
