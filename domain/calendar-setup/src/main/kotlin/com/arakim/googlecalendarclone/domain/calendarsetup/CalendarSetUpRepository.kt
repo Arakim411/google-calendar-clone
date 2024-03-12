@@ -9,5 +9,5 @@ interface CalendarSetUpRepository {
 
     fun getSetUp(): TypedResult<CalendarSetUp, CommonError>
     fun saveSetUp(calendarSetUp: CalendarSetUp)
-    fun setUpFlow(): Flow<CalendarSetUp>
+    fun getSetUpFlow(): Flow<TypedResult<CalendarSetUp, CommonError>>
 }

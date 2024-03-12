@@ -28,7 +28,6 @@ typealias State = AppDrawerState
 typealias Action = AppDrawerAction
 typealias SideEffect = AppDrawerSideEffect
 
-// TODO save drawerState in shared pref
 @Immutable
 @ActivityRetainedScoped
 class AppDrawerPresenter @Inject constructor(

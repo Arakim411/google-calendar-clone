@@ -63,7 +63,7 @@ private fun Event.toUserEvent(): UserEvent = UserEvent(
 private fun Event.toWorldEvent(): WorldEvent = WorldEvent(
     id = id,
     title = this.summary,
-    startDateTime = this.end.date.toLocalDateTime(),
+    startDateTime = this.start.date.toLocalDateTime(),
     description = description ?: ""
 )
 
