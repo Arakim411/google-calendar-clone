@@ -1,5 +1,6 @@
 package com.arakim.googlecalendarclone.ui.calendar.presenter.helpers
 
+import androidx.compose.runtime.mutableStateOf
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType.Day
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType.Month
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType.Schedule
@@ -26,7 +27,7 @@ class GetCalendarStateHelper @Inject constructor(
         range: CalendarRangeUiModel,
         setUp: CalendarSetUp,
     ): ReadyState {
-        val wrappedSetUp = ImmutableWrapper(setUp)
+        val wrappedSetUp = mutableStateOf(ImmutableWrapper(setUp))
         val selectedDay = LocalDate.now().toCalendarDay()
 
         return when (setUp.rangeType) {

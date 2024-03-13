@@ -1,5 +1,6 @@
 package com.arakim.googlecalendarclone.ui.calendar.presenter.helpers.schedule
 
+import androidx.compose.runtime.mutableStateOf
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarSetUp
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ScheduleState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleMonthUiModel
@@ -23,7 +24,7 @@ class GetScheduleUiStateHelper @Inject constructor(
     ): ScheduleState {
         return ScheduleState(
             calendarInfo = range,
-            calendarSetUp = ImmutableWrapper(setUp),
+            calendarSetUp = mutableStateOf(ImmutableWrapper(setUp)),
             selectedDay = selectedDay,
             scheduleMonths = getScheduleMonths(range.fromDate, range.toDate, range)
         )
