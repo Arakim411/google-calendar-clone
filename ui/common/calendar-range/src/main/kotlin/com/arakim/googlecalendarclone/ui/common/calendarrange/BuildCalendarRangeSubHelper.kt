@@ -50,9 +50,10 @@ class BuildCalendarRangeSubHelper @Inject constructor() {
 }
 
 fun LocalDate.toCalendarDay(): Day = Day(
+    dayOfWeek = dayOfWeek.value,
+    dayOfMonth = dayOfMonth,
     year = year,
     month = monthValue,
-    day = dayOfMonth
 )
 
 fun LocalDate.toCalendarMonth(): Month = Month(
@@ -61,7 +62,8 @@ fun LocalDate.toCalendarMonth(): Month = Month(
 )
 
 fun LocalDateTime.toCalendarDay(): Day = Day(
+    dayOfWeek = dayOfWeek.value,
+    dayOfMonth = dayOfMonth,
     year = year,
     month = monthValue,
-    day = dayOfMonth
 )

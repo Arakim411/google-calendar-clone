@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class ScheduleMonthUiModel(
-    val month: Int,
+    val monthValue: Int,
     val year: Int,
     val daysRange: List<ScheduleDayRangeUiModel>,
 )
