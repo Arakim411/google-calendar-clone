@@ -3,6 +3,7 @@ package com.arakim.googlecalendarclone.ui.calendar.presenter
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarSetUp
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarMonthUiModel
+import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarRangeUiModel
 import com.arakim.googlecalendarclone.util.kotlin.CommonError
 
 sealed interface CalendarAction {
@@ -15,6 +16,7 @@ sealed interface CalendarAction {
     }
 
     sealed interface UpdateAction : CalendarAction {
-        data class UserScrolledToNewMonthAction(val month: CalendarMonthUiModel) : UpdateAction
+        data class UserScrolledToMonthAction(val month: CalendarMonthUiModel) : UpdateAction
+        data class AdditionalRangeLoadedAction(val range: CalendarRangeUiModel) : UpdateAction
     }
 }

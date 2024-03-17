@@ -1,3 +1,10 @@
 package com.arakim.googlecalendarclone.ui.calendar.presenter
 
-sealed interface CalendarSideEffect
+import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarDayUiModel
+
+sealed interface CalendarSideEffect {
+
+    data class SelectedDayChanged(
+        val day: CalendarDayUiModel,
+    ) : CalendarSideEffect
+}

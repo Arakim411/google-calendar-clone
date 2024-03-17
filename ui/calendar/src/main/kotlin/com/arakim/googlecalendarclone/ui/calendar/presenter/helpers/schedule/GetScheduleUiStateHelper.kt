@@ -1,9 +1,12 @@
 package com.arakim.googlecalendarclone.ui.calendar.presenter.helpers.schedule
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarSetUp
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ScheduleState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleMonthUiModel
+import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.isAfter
+import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.isBefore
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarDayUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarMonthUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarRangeUiModel
@@ -20,13 +23,23 @@ class GetScheduleUiStateHelper @Inject constructor(
     operator fun invoke(
         range: CalendarRangeUiModel,
         setUp: CalendarSetUp,
-        selectedDay: CalendarDayUiModel,
+        selectedDay: State<CalendarDayUiModel>,
     ): ScheduleState {
+        val months = getScheduleMonths(range.fromDate, range.toDate, range)
+        val initialMonth = months.getInitialMonth()
+
+        val after: ImmutableList<ScheduleMonthUiModel> =
+            months.filter { it.isAfter(initialMonth) }.toImmutableList()
+        val before: ImmutableList<ScheduleMonthUiModel> =
+            months.filter { it.isBefore(initialMonth) }.reversed().toImmutableList()
+
         return ScheduleState(
             calendarInfo = range,
             calendarSetUp = mutableStateOf(ImmutableWrapper(setUp)),
             selectedDay = selectedDay,
-            scheduleMonths = getScheduleMonths(range.fromDate, range.toDate, range)
+            initialMonth = initialMonth,
+            monthsAfterInitial = after,
+            monthsBeforeInitial = before,
         )
     }
 
@@ -53,5 +66,10 @@ class GetScheduleUiStateHelper @Inject constructor(
             unit(CalendarMonthUiModel(current.monthValue, current.year))
             current = current.plusMonths(1)
         }
+    }
+
+    private fun ImmutableList<ScheduleMonthUiModel>.getInitialMonth(): ScheduleMonthUiModel {
+        val today = LocalDate.now()
+        return find { it.monthValue == today.monthValue && it.year == today.year } ?: first()
     }
 }

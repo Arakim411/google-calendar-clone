@@ -1,5 +1,6 @@
 package com.arakim.googlecalendarclone.ui.calendar.presenter.helpers
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType.Day
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarRangeType.Month
@@ -13,6 +14,7 @@ import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyS
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ThreeDaysState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.WeekState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.helpers.schedule.GetScheduleUiStateHelper
+import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarDayUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarRangeUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.toCalendarDay
 import com.arakim.googlecalendarclone.util.compose.ImmutableWrapper
@@ -26,9 +28,9 @@ class GetCalendarStateHelper @Inject constructor(
     operator fun invoke(
         range: CalendarRangeUiModel,
         setUp: CalendarSetUp,
+        selectedDay: State<CalendarDayUiModel> = mutableStateOf(LocalDate.now().toCalendarDay()),
     ): ReadyState {
         val wrappedSetUp = mutableStateOf(ImmutableWrapper(setUp))
-        val selectedDay = LocalDate.now().toCalendarDay()
 
         return when (setUp.rangeType) {
             Schedule -> getScheduleState(range, setUp, selectedDay)

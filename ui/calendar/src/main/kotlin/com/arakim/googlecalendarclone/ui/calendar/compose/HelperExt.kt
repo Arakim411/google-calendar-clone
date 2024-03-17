@@ -19,24 +19,6 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 @Stable
-fun Int.asMonthString(): String = when (this) {
-    1 -> stringResource(id = R.string.january)
-    2 -> stringResource(id = R.string.february)
-    3 -> stringResource(id = R.string.march)
-    4 -> stringResource(id = R.string.april)
-    5 -> stringResource(id = R.string.may)
-    6 -> stringResource(id = R.string.june)
-    7 -> stringResource(id = R.string.july)
-    8 -> stringResource(id = R.string.august)
-    9 -> stringResource(id = R.string.september)
-    10 -> stringResource(id = R.string.october)
-    11 -> stringResource(id = R.string.november)
-    12 -> stringResource(id = R.string.december)
-    else -> "Unknown"
-}
-
-@Composable
-@Stable
 fun Int.asShortDay(): String = when (this) {
     1 -> stringResource(id = R.string.short_monday)
     2 -> stringResource(id = R.string.short_tuesday)
