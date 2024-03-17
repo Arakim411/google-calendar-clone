@@ -1,6 +1,5 @@
 package com.arakim.googlecalendarclone.ui.calendar.compose
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -8,7 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.ScheduleStateView
+import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.ScheduleStateView
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarPresenter
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ErrorState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.IdleState
@@ -27,24 +27,25 @@ fun CalendarView(presenter: CalendarPresenter) {
 
     val state = presenter.stateFlow.collectAsStateWithLifecycle()
 
-    Crossfade(targetState = state.value, label = "") { stateValue ->
-        when (stateValue) {
-            // TODO add retry
-            is ErrorState -> CommonErrorView(stateValue.error)
-            IdleState -> Unit
-            InitializingState -> CommonLoaderView()
-            is ReadyState -> ReadyState(stateValue)
-        }
+    when (val stateValue = state.value) {
+        // TODO add retry
+        is ErrorState -> CommonErrorView(stateValue.error)
+        IdleState -> Unit
+        InitializingState -> CommonLoaderView()
+        is ReadyState -> ReadyState(stateValue, presenter::onAction)
     }
 }
 
 @Composable
-private fun ReadyState(state: ReadyState) {
+private fun ReadyState(
+    state: ReadyState,
+    onAction: (CalendarAction) -> Unit,
+) {
     when (state) {
         is DayState -> NotReadyView(text = "dayState")
         is ThreeDaysState -> NotReadyView(text = "3dayState")
         is MonthState -> NotReadyView(text = "month")
-        is ScheduleState -> ScheduleStateView(state)
+        is ScheduleState -> ScheduleStateView(state, onAction)
         is WeekState -> NotReadyView(text = "week")
     }
 }

@@ -7,7 +7,7 @@ import com.arakim.googlecalendarclone.ui.common.calendarrange.Event
 import com.arakim.googlecalendarclone.ui.common.calendarrange.Month
 
 @Immutable
-data class CalendarInfoUiModel(val monthsToEvents: HashMap<Month, HashMap<Day, List<Event>>>)
+data class CalendarInfoUiModel(val monthsToEvents: Map<Month, HashMap<Day, List<Event>>>)
 
 @Stable
 fun CalendarInfoUiModel.getEventInDay(day: Day): List<Event>? =

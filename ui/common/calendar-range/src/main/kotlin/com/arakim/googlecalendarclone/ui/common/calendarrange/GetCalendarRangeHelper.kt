@@ -22,22 +22,32 @@ class GetCalendarRangeHelper @Inject constructor(
 ) {
 
     suspend operator fun invoke(referenceDate: LocalDate): TypedResult<CalendarRangeUiModel, CommonError> {
+        val fromDate = referenceDate.minusMonths(CalendarRangeMonths)
+        val toDate = referenceDate.plusMonths(CalendarRangeMonths)
+        return invoke(fromDate, toDate)
+    }
+
+    suspend operator fun invoke(
+        fromDate: LocalDate,
+        toDate: LocalDate,
+    ): TypedResult<CalendarRangeUiModel, CommonError> {
+
         val userCalendar = getUseCalendar(
-            fromDate = referenceDate.minusDays(CalendarRangeDays),
-            toDate = referenceDate.plusDays(CalendarRangeDays)
+            fromDate = fromDate,
+            toDate = toDate
         ).onFailure {
             return TypedResult.failure(it)
         }
 
         val calendarRange = buildCalendarRange(
             userCalendar.getOrThrow(),
-            referenceDate.minusDays(CalendarRangeDays),
-            referenceDate.plusDays(CalendarRangeDays),
+            fromDate,
+            toDate,
         )
         return TypedResult.success(calendarRange)
     }
 
     companion object {
-        private const val CalendarRangeDays = 360L
+        private const val CalendarRangeMonths = 36L
     }
 }

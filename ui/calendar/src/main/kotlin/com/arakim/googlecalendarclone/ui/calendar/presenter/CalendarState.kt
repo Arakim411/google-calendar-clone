@@ -19,42 +19,44 @@ sealed interface CalendarState {
     sealed interface ReadyState : CalendarState {
         val calendarInfo: CalendarRangeUiModel
         val calendarSetUp: State<ImmutableWrapper<CalendarSetUp>>
-        val selectedDay: CalendarDayUiModel
+        val selectedDay: State<CalendarDayUiModel>
 
         @Immutable
         data class ScheduleState(
             override val calendarInfo: CalendarRangeUiModel,
             override val calendarSetUp: State<ImmutableWrapper<CalendarSetUp>>,
-            override val selectedDay: CalendarDayUiModel,
-            val scheduleMonths: ImmutableList<ScheduleMonthUiModel>
+            override val selectedDay: State<CalendarDayUiModel>,
+            val initialMonth: ScheduleMonthUiModel,
+            val monthsAfterInitial: ImmutableList<ScheduleMonthUiModel>,
+            val monthsBeforeInitial: ImmutableList<ScheduleMonthUiModel>,
         ) : ReadyState
 
         @Immutable
         data class DayState(
             override val calendarInfo: CalendarRangeUiModel,
             override val calendarSetUp: State<ImmutableWrapper<CalendarSetUp>>,
-            override val selectedDay: CalendarDayUiModel,
+            override val selectedDay: State<CalendarDayUiModel>,
         ) : ReadyState
 
         @Immutable
         data class ThreeDaysState(
             override val calendarInfo: CalendarRangeUiModel,
             override val calendarSetUp: State<ImmutableWrapper<CalendarSetUp>>,
-            override val selectedDay: CalendarDayUiModel,
+            override val selectedDay: State<CalendarDayUiModel>,
         ) : ReadyState
 
         @Immutable
         data class WeekState(
             override val calendarInfo: CalendarRangeUiModel,
             override val calendarSetUp: State<ImmutableWrapper<CalendarSetUp>>,
-            override val selectedDay: CalendarDayUiModel,
+            override val selectedDay: State<CalendarDayUiModel>,
         ) : ReadyState
 
         @Immutable
         data class MonthState(
             override val calendarInfo: CalendarRangeUiModel,
             override val calendarSetUp: State<ImmutableWrapper<CalendarSetUp>>,
-            override val selectedDay: CalendarDayUiModel,
+            override val selectedDay: State<CalendarDayUiModel>,
         ) : ReadyState
     }
 }

@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber")
 
-package com.arakim.googlecalendarclone.ui.calendar.compose.stateviews
+package com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -28,53 +26,57 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.arakim.googlecalendarclone.domain.calendarinfo.model.CalendarEvent
 import com.arakim.googlecalendarclone.domain.calendarsetup.model.CalendarSetUp
-import com.arakim.googlecalendarclone.ui.calendar.compose.asMonthString
 import com.arakim.googlecalendarclone.ui.calendar.compose.asShortDay
 import com.arakim.googlecalendarclone.ui.calendar.compose.getBackgroundColor
 import com.arakim.googlecalendarclone.ui.calendar.compose.getHoursRange
 import com.arakim.googlecalendarclone.ui.calendar.compose.getTextColor
 import com.arakim.googlecalendarclone.ui.calendar.compose.shouldShowEvent
 import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.ScheduleConsts as Consts
+import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.getColorsForMonth
+import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.monthscolumn.InfinityLazyList
+import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.monthscolumn.rememberInfinityLazyListState
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction.UpdateAction.UserScrolledToMonthAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ScheduleState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleDayRangeUiModel
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleMonthUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarDayUiModel
 import com.arakim.googlecalendarclone.util.compose.ImmutableWrapper
+import com.arakim.googlecalendarclone.util.compose.asMonthString
+import kotlinx.coroutines.flow.collectLatest
 
-// TODO refactor
 // TODO check performance
 // TODO setUp with staticCompositionLocalOf
 // TODO add animations
 
 @Composable
-fun ScheduleStateView(state: ScheduleState) {
+fun ScheduleStateView(
+    state: ScheduleState,
+    onAction: (CalendarAction) -> Unit,
+) {
 
-    val lazyListState = rememberLazyListState()
+    val lazyListState = rememberInfinityLazyListState()
 
     LaunchedEffect(Unit) {
-
-        lazyListState.scrollToItem(
-            state.scheduleMonths.indexOfFirst {
-                it.year == state.selectedDay.year && it.monthValue == state.selectedDay.month
-            },
-        )
+        snapshotFlow { lazyListState.firstVisibleMonth.value }
+            .collectLatest { month ->
+                month ?: return@collectLatest
+                onAction(UserScrolledToMonthAction(month))
+            }
     }
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        state = lazyListState,
-    ) {
-        state.scheduleMonths.forEach { month ->
-            item {
-                MonthView(month, state.calendarSetUp.value)
-                Spacer(modifier = Modifier.height(Consts.ItemSpacing))
-            }
-        }
+    InfinityLazyList(
+        listState = lazyListState,
+        scheduleState = state,
+    ) { month ->
+
+        MonthView(month, state.calendarSetUp.value)
+        Spacer(modifier = Modifier.height(Consts.ItemSpacing))
     }
 }
 
 @Composable
-private fun LazyItemScope.MonthView(
+private fun MonthView(
     month: ScheduleMonthUiModel,
     setUp: ImmutableWrapper<CalendarSetUp>,
 ) {
@@ -92,12 +94,13 @@ private fun LazyItemScope.MonthView(
 // TODO images as background
 @Composable
 private fun MonthTitle(month: ScheduleMonthUiModel) {
+    val gradientColors = remember { month.monthValue.getColorsForMonth() }
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(Consts.MonthTitle.Height)
-            .background(Brush.horizontalGradient(colors = listOf(Color.Green, Color.Cyan)))
+            .background(Brush.verticalGradient(colors = gradientColors))
             .padding(top = Consts.MonthTitle.PaddingTop, start = Consts.MonthTitle.PaddingStart)
     ) {
         Text(
@@ -108,7 +111,7 @@ private fun MonthTitle(month: ScheduleMonthUiModel) {
 }
 
 @Composable
-private fun LazyItemScope.DayRangeView(
+private fun DayRangeView(
     month: ScheduleMonthUiModel,
     dayRange: ScheduleDayRangeUiModel,
     setUp: ImmutableWrapper<CalendarSetUp>,
@@ -194,7 +197,7 @@ private fun EventView(
 }
 
 @Composable
-private fun DayRangeContainer(
+internal fun DayRangeContainer(
     leadingView: @Composable () -> Unit = {},
     centerView: @Composable () -> Unit,
 ) {
