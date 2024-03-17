@@ -7,4 +7,6 @@ sealed interface CalendarSideEffect {
     data class SelectedDayChanged(
         val day: CalendarDayUiModel,
     ) : CalendarSideEffect
+
+    data class ScrollToDaySideEffect(val calendarDayUiModel: CalendarDayUiModel) : CalendarSideEffect
 }

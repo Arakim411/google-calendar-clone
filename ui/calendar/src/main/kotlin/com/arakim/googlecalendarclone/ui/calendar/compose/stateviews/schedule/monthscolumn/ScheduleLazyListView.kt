@@ -13,6 +13,7 @@ import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.mo
 import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.monthscolumn.ScheduleListItem.UserItem
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ScheduleState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.toCalendarMonthUiModel
+import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarDayUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarMonthUiModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
@@ -29,6 +30,11 @@ internal class ScheduleLazyListView(
 
     @Stable
     override val firstVisibleMonth: State<CalendarMonthUiModel?> = _firstVisibleMonth
+
+    override suspend fun scrollTo(calendarDayUiModel: CalendarDayUiModel) {
+        // TODO
+        scrollToInitialIndex()
+    }
 
     fun initialize(scope: CoroutineScope) {
         scope.launch {
@@ -68,7 +74,7 @@ internal class ScheduleLazyListView(
 }
 
 @Composable
-fun rememberInfinityLazyListState(): ScheduleLazyListState {
+fun rememberScheduleLazyListState(): ScheduleLazyListState {
 
     val lazyListState = rememberLazyListState()
     return remember { ScheduleLazyListView(lazyListState) }

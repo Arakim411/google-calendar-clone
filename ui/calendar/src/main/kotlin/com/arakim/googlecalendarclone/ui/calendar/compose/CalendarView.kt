@@ -32,7 +32,7 @@ fun CalendarView(presenter: CalendarPresenter) {
         is ErrorState -> CommonErrorView(stateValue.error)
         IdleState -> Unit
         InitializingState -> CommonLoaderView()
-        is ReadyState -> ReadyState(stateValue, presenter::onAction)
+        is ReadyState -> ReadyState(stateValue, presenter::onAction, presenter)
     }
 }
 
@@ -40,12 +40,13 @@ fun CalendarView(presenter: CalendarPresenter) {
 private fun ReadyState(
     state: ReadyState,
     onAction: (CalendarAction) -> Unit,
+    presenter: CalendarPresenter,
 ) {
     when (state) {
         is DayState -> NotReadyView(text = "dayState")
         is ThreeDaysState -> NotReadyView(text = "3dayState")
         is MonthState -> NotReadyView(text = "month")
-        is ScheduleState -> ScheduleStateView(state, onAction)
+        is ScheduleState -> ScheduleStateView(state, presenter, onAction)
         is WeekState -> NotReadyView(text = "week")
     }
 }
