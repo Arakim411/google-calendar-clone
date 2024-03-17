@@ -18,7 +18,7 @@ apply<AndroidComposeModulePlugin>()
 dependencies {
     implementation(project(":ui:common:calendar-range"))
     implementation(project(":ui:app-navigation-drawer"))
-    implementation(project(":ui:calendar"))
+    api(project(":ui:calendar"))
 
     implementation(Google.Api.AndroidClient)
     implementation(Google.PlayServices.Auth)

@@ -1,23 +1,39 @@
 @file:Suppress("MagicNumber")
+
 package com.arakim.googlecalendarclone.ui.calendar.compose.stateviews
 
 import androidx.compose.ui.graphics.Color
+import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleMonthUiModel
 
 @Suppress("complexity")
-fun Int.getColorsForMonth(): List<Color> = with(ScheduleConsts) {
-    when (this@getColorsForMonth) {
-        1 -> listOf(winterColors1.random(), winterColors2.random())
-        2 -> listOf(winterColors1.random(), winterColors2.random())
-        3 -> listOf(springColors1.random(), springColors2.random())
-        4 -> listOf(springColors1.random(), springColors2.random())
-        5 -> listOf(springColors1.random(), springColors2.random())
-        6 -> listOf(summerColors1.random(), summerColors2.random())
-        7 -> listOf(summerColors1.random(), summerColors2.random())
-        8 -> listOf(summerColors1.random(), summerColors2.random())
-        9 -> listOf(autumnColors1.random(), autumnColors2.random())
-        10 -> listOf(autumnColors1.random(), autumnColors2.random())
-        11 -> listOf(autumnColors1.random(), autumnColors2.random())
-        12 -> listOf(winterColors1.random(), winterColors2.random())
+fun ScheduleMonthUiModel.getColorsForMonth(): List<Color> =
+    when (this@getColorsForMonth.monthValue) {
+        12, 1, 2 -> getColorsForWinter()
+        3, 4, 5 -> getColorsForSpring()
+        6, 7, 8 -> getColorsForSummer()
+        9, 10, 11 -> getColorsForAutumn()
         else -> error("month: $this is not valid")
     }
-}
+
+private fun ScheduleMonthUiModel.getColorsForWinter(): List<Color> = listOf(
+    ScheduleConsts.winterColors1.getColor(this),
+    ScheduleConsts.winterColors2.getColor(this)
+)
+
+private fun ScheduleMonthUiModel.getColorsForSpring(): List<Color> = listOf(
+    ScheduleConsts.springColors1.getColor(this),
+    ScheduleConsts.springColors2.getColor(this)
+)
+
+private fun ScheduleMonthUiModel.getColorsForSummer(): List<Color> = listOf(
+    ScheduleConsts.summerColors1.getColor(this),
+    ScheduleConsts.summerColors2.getColor(this)
+)
+
+private fun ScheduleMonthUiModel.getColorsForAutumn(): List<Color> = listOf(
+    ScheduleConsts.autumnColors1.getColor(this),
+    ScheduleConsts.autumnColors2.getColor(this)
+)
+
+private fun List<Color>.getColor(month: ScheduleMonthUiModel): Color =
+    get((month.monthValue + month.year + month.year) % size)

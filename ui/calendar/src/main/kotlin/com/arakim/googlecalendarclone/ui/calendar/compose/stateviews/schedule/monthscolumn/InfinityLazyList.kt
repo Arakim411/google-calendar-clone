@@ -13,7 +13,7 @@ import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.Sched
 fun InfinityLazyList(
     modifier: Modifier = Modifier,
     scheduleState: ScheduleState,
-    listState: ScheduleLazyListState = rememberInfinityLazyListState(),
+    listState: ScheduleLazyListState = rememberScheduleLazyListState(),
     itemContent: @Composable (item: ScheduleMonthUiModel) -> Unit,
 ) {
     val scope = rememberCoroutineScope()

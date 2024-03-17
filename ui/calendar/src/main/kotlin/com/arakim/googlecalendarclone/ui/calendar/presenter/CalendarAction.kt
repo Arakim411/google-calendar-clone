@@ -18,5 +18,6 @@ sealed interface CalendarAction {
     sealed interface UpdateAction : CalendarAction {
         data class UserScrolledToMonthAction(val month: CalendarMonthUiModel) : UpdateAction
         data class AdditionalRangeLoadedAction(val range: CalendarRangeUiModel) : UpdateAction
+        data object ScrollToTodayAction : UpdateAction
     }
 }

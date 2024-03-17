@@ -52,14 +52,11 @@ object ScheduleConsts {
     val summerColors1 = listOf(
         Color(0xFFFF4500),
         Color(0xFFFFD700),
-        Color(0xFF7FFFD4),
     )
 
     val summerColors2 = listOf(
         Color(0xFFFF6347),
-        Color(0xFFFF69B4),
         Color(0xFFFFA500),
-        Color(0xFFFFD700)
     )
 
     val autumnColors1 = listOf(
@@ -70,8 +67,6 @@ object ScheduleConsts {
 
     val autumnColors2 = listOf(
         Color(0xFFDEB887),
-        Color(0xFFD2691E),
         Color(0xFFBC8F8F),
-        Color(0xFF8B4513)
     )
 }

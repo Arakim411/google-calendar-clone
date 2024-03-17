@@ -34,9 +34,11 @@ import com.arakim.googlecalendarclone.ui.calendar.compose.shouldShowEvent
 import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.ScheduleConsts as Consts
 import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.getColorsForMonth
 import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.monthscolumn.InfinityLazyList
-import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.monthscolumn.rememberInfinityLazyListState
+import com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.monthscolumn.rememberScheduleLazyListState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction.UpdateAction.UserScrolledToMonthAction
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarPresenter
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarSideEffect.ScrollToDaySideEffect
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState.ScheduleState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleDayRangeUiModel
 import com.arakim.googlecalendarclone.ui.calendar.presenter.model.schedule.ScheduleMonthUiModel
@@ -52,21 +54,31 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun ScheduleStateView(
     state: ScheduleState,
+    presenter: CalendarPresenter,
     onAction: (CalendarAction) -> Unit,
 ) {
 
-    val lazyListState = rememberInfinityLazyListState()
+    val scheduleListState = rememberScheduleLazyListState()
 
     LaunchedEffect(Unit) {
-        snapshotFlow { lazyListState.firstVisibleMonth.value }
+        snapshotFlow { scheduleListState.firstVisibleMonth.value }
             .collectLatest { month ->
                 month ?: return@collectLatest
                 onAction(UserScrolledToMonthAction(month))
             }
     }
 
+    LaunchedEffect(Unit) {
+        presenter.sideEffectFlow.collectLatest {
+            when (it) {
+                is ScrollToDaySideEffect -> scheduleListState.scrollTo(it.calendarDayUiModel)
+                else -> Unit
+            }
+        }
+    }
+
     InfinityLazyList(
-        listState = lazyListState,
+        listState = scheduleListState,
         scheduleState = state,
     ) { month ->
 
@@ -94,7 +106,7 @@ private fun MonthView(
 // TODO images as background
 @Composable
 private fun MonthTitle(month: ScheduleMonthUiModel) {
-    val gradientColors = remember { month.monthValue.getColorsForMonth() }
+    val gradientColors = remember { month.getColorsForMonth() }
 
     Box(
         modifier = Modifier

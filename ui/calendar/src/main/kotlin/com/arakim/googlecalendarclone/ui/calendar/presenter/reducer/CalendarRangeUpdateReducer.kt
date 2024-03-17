@@ -4,15 +4,19 @@ import androidx.compose.runtime.MutableState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction.UpdateAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction.UpdateAction.AdditionalRangeLoadedAction
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction.UpdateAction.ScrollToTodayAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarAction.UpdateAction.UserScrolledToMonthAction
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarSideEffect
+import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarSideEffect.ScrollToDaySideEffect
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.CalendarState.ReadyState
 import com.arakim.googlecalendarclone.ui.calendar.presenter.helpers.LoadAdditionalRangeHelper
 import com.arakim.googlecalendarclone.ui.calendar.presenter.helpers.MergeAdditionalRangeHelper
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.toCalendarDay
+import com.arakim.googlecalendarclone.ui.common.calendarrange.toCalendarDay
 import com.arakim.googlecalendarclone.util.kotlin.yielded
 import com.arakim.googlecalendarclone.util.mvi.StateReducerWithSideEffect
+import java.time.LocalDate
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Job
@@ -31,9 +35,19 @@ class CalendarRangeUpdateReducer @Inject constructor(
     }
 
     private fun ReadyState.reduceUpdateAction(action: UpdateAction): CalendarState = when (action) {
-        is UserScrolledToMonthAction -> reduceUserScrolledToMonthAction(action)
-        is AdditionalRangeLoadedAction -> with(mergeAdditionalRangeHelper) {
-            getStateWithMergedRange(action.range)
+        is UserScrolledToMonthAction -> {
+            reduceUserScrolledToMonthAction(action)
+        }
+
+        is AdditionalRangeLoadedAction -> {
+            with(mergeAdditionalRangeHelper) {
+                getStateWithMergedRange(action.range)
+            }
+        }
+
+        ScrollToTodayAction -> {
+            emitSideEffect(ScrollToDaySideEffect(LocalDate.now().toCalendarDay()))
+            this
         }
     }
 

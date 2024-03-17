@@ -2,9 +2,12 @@ package com.arakim.googlecalendarclone.ui.calendar.compose.stateviews.schedule.m
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
+import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarDayUiModel
 import com.arakim.googlecalendarclone.ui.common.calendarrange.model.CalendarMonthUiModel
 
 interface ScheduleLazyListState {
     @Stable
     val firstVisibleMonth: State<CalendarMonthUiModel?>
+
+    suspend fun scrollTo(calendarDayUiModel: CalendarDayUiModel)
 }
