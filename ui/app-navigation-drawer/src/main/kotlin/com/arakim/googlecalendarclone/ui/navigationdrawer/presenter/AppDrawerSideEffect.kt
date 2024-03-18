@@ -6,5 +6,6 @@ sealed interface AppDrawerSideEffect {
         data object AccountClickedSideEffect : ItemClickedSideEffect
         data object SettingsClickedSideEffect : ItemClickedSideEffect
         data object HelpFeedbackClickedSideEffect : ItemClickedSideEffect
+        data object SignOutSideEffect : ItemClickedSideEffect
     }
 }

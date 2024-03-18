@@ -16,7 +16,7 @@ import com.arakim.googlecalendarclone.util.compose.immutableListOf
 
 internal fun getDrawerItemsGroups(
     userName: String,
-    setUp: CalendarSetUp
+    setUp: CalendarSetUp,
 ) = immutableListOf(
     GroupWithSelectedItem(
         id = AppDrawerGroupsId.RangeGroupId,
@@ -66,7 +66,7 @@ private fun refreshItem() = immutableListOf(
 
 private fun accountAndCheckBoxItems(
     userName: String,
-    setUp: CalendarSetUp
+    setUp: CalendarSetUp,
 ) = immutableListOf(
     AccountItem(
         id = AppDrawerItemIds.AccountId,
@@ -101,8 +101,8 @@ private fun settingsAndHelpItems() = immutableListOf(
         title = StringResources(string.drawer_item_title_settings),
     ),
     IconItem(
-        iconResId = drawable.ic_help,
-        id = AppDrawerItemIds.HelpFeedbackId,
-        title = StringResources(string.drawer_item_title_help),
-    ),
+        iconResId = drawable.baseline_logout_24,
+        id = AppDrawerItemIds.SignOutId,
+        title = StringResources(string.sign_out),
+    )
 )

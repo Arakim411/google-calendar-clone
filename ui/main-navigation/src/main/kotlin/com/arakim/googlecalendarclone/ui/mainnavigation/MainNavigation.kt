@@ -22,6 +22,7 @@ import com.arakim.googlecalendarclone.ui.mainnavigation.destination.NavigationAc
 import com.arakim.googlecalendarclone.ui.navigationdrawer.AppDrawerViewModel
 import com.arakim.googlecalendarclone.ui.navigationdrawer.AppNavigationDrawerView
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.RefreshClickedSideEffect
+import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.SignOutSideEffect
 import com.arakim.googlecalendarclone.ui.screen.home.HomeScreen
 import com.arakim.googlecalendarclone.ui.screen.home.HomeViewModel
 import com.arakim.googlecalendarclone.ui.screen.signin.compose.SignInScreen
@@ -99,6 +100,12 @@ fun MainNavigation(
                             RefreshClickedSideEffect -> {
                                 viewModel.calendarPresenter.onAction(InitializeAction)
                                 changeIsDrawerOpen(false)
+                            }
+
+                            SignOutSideEffect -> {
+                                appDrawerViewModel.signOut()
+                                changeIsDrawerOpen(false)
+                                navigate(NavigateAction(SignInDestination, removeAllDestinations = true))
                             }
 
                             else -> {
