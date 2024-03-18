@@ -7,6 +7,7 @@ sealed interface AppDrawerAction {
     sealed interface InitializationAction : AppDrawerAction {
         data class InitializeAction(val userName: String) : InitializationAction
         data object InitializeFailedFailedAction : InitializationAction
+        data object SignOutAction : InitializationAction
     }
 
     data class CoreStateChangedAction(val newState: CoreDrawerState) : AppDrawerAction

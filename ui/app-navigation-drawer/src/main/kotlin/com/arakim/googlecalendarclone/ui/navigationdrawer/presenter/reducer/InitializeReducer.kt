@@ -9,12 +9,15 @@ import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAct
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction.InitializationAction
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction.InitializationAction.InitializeAction
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction.InitializationAction.InitializeFailedFailedAction
+import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerAction.InitializationAction.SignOutAction
+import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect
+import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.SignOutSideEffect
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerState.ErrorState
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerState.InitializingState
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.State
 import com.arakim.googlecalendarclone.util.kotlin.getOrThrow
 import com.arakim.googlecalendarclone.util.kotlin.yielded
-import com.arakim.googlecalendarclone.util.mvi.StateReducer
+import com.arakim.googlecalendarclone.util.mvi.StateReducerWithSideEffect
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Job
@@ -26,15 +29,25 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withTimeout
 
 class InitializeReducer @Inject constructor(
-    private val getCalendarSetUp: GetCalendarSetUpUseCase
-) : StateReducer<State, Action, InitializationAction>() {
+    private val getCalendarSetUp: GetCalendarSetUpUseCase,
+) : StateReducerWithSideEffect<State, Action, InitializationAction, AppDrawerSideEffect>() {
 
     lateinit var coreDrawerPresenter: CoreNavigationDrawerPresenter
     private var coreStateUpdateJob: Job? = null
 
     override fun State.reduce(action: InitializationAction): State = when (action) {
-        is InitializeAction -> reduceInitializeAction(action)
-        InitializeFailedFailedAction -> ErrorState
+        is InitializeAction -> {
+            reduceInitializeAction(action)
+        }
+
+        InitializeFailedFailedAction -> {
+            ErrorState
+        }
+
+        SignOutAction -> {
+            emitSideEffect(SignOutSideEffect)
+            this
+        }
     }
 
     private fun State.reduceInitializeAction(action: InitializeAction): State {

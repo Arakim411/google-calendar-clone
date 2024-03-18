@@ -13,6 +13,7 @@ import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSid
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.HelpFeedbackClickedSideEffect
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.RefreshClickedSideEffect
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.SettingsClickedSideEffect
+import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerSideEffect.ItemClickedSideEffect.SignOutSideEffect
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.AppDrawerState.IdleState
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.model.AppDrawerItemIds
 import com.arakim.googlecalendarclone.ui.navigationdrawer.presenter.reducer.CoreDrawerStateUpdatesReducer
@@ -82,6 +83,7 @@ class AppDrawerPresenter @Inject constructor(
             AppDrawerItemIds.AccountId -> AccountClickedSideEffect
             AppDrawerItemIds.SettingsId -> SettingsClickedSideEffect
             AppDrawerItemIds.HelpFeedbackId -> HelpFeedbackClickedSideEffect
+            AppDrawerItemIds.SignOutId -> SignOutSideEffect
             else -> return TypedResult.failure(Unit)
         }
 

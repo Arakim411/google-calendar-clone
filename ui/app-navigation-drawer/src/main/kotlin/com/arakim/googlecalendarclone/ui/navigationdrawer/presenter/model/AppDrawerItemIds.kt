@@ -17,4 +17,5 @@ object AppDrawerItemIds {
     const val HolidaysId = "holidays_id"
     const val SettingsId = "settings_id"
     const val HelpFeedbackId = "help_feedback_id"
+    const val SignOutId = "sign_out_id"
 }
