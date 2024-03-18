@@ -25,7 +25,7 @@ object ScheduleConsts {
 
     val springColors1 = listOf(
         Color(0xFFFFD700),
-        Color(0xFFFF69B4),
+        Color(0xFF8BC34A),
         Color(0xFF00FF00),
     )
 
