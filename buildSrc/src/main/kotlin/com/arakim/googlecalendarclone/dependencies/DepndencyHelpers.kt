@@ -25,6 +25,7 @@ fun DependencyHandler.compose(util: Boolean = true, common: Boolean = true) {
     implementation(Compose.Material3)
     implementation(AndroidX.Lifecycle.Compose)
     implementation(Compose.Navigation)
+    implementation(Compose.Accomponist)
 
     debugImplementation(Compose.UiTooling)
     debugImplementation(Compose.UiTestManifest)
