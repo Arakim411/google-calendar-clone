@@ -27,6 +27,11 @@ I hope my solutions will interest you from a technical perspective
 ## Other
 - Detekt
 
+# Modules architecture
+
+
+<img width="1889" alt="Google calendar clone modules diagram 17 31 25" src="https://github.com/Arakim411/google-calendar-clone/assets/64414992/cc8c4976-73e9-4c23-9561-e6017cf9b829">
+
 
 
 
